@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Manager - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-rocket"></i>
+                Startup Manager
+            </h1>
+            <p class="subtitle">GUI and Command-Line Project Management Tools</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>🚀 BDA Project Startup Manager</h2>
+                <p>The Startup Manager provides both GUI and command-line tools to easily start, stop, and manage all BDA projects from a single interface. No more hunting through documentation - everything is visual and self-explanatory.</p>
+
+                <h3>📁 Startup Directory Structure</h3>
+                <div class="code-block"><pre><code>
+Startup/
+├── gui_manager.py          # 🖥️ Main GUI application
+├── project_manager.py      # 💻 Command-line interface
+├── beginner_guide.py       # 📚 Step-by-step tutorial window
+├── startup.py              # 🚀 Quick launcher script
+├── project_config.json     # ⚙️ Project configurations
+├── requirements.txt        # 📦 Python dependencies
+└── README.md              # 📖 Documentation
+                </code></pre></div>
+
+                <h3>🎯 Quick Start (For Beginners)</h3>
+                <div style="background: #e8f5e8; border: 2px solid #27ae60; border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                    <h4 style="color: #27ae60;">🏃‍♂️ Fastest Way to Get Started:</h4>
+                    <div class="code-block"><pre><code>
+# 1. Install dependencies (one-time setup)
+pip install requests psutil
+
+# 2. Launch the GUI
+python Startup/startup.py
+
+# 3. Follow the beginner's guide that opens automatically
+# 4. Click "Start W-2 Processor" to test with sample W-2 form
+                    </code></pre></div>
+                </div>
+
+                <h3>🖥️ GUI Manager Features</h3>
+                <h4>Main Interface Layout</h4>
+                <ul>
+                    <li><strong>Left Panel</strong>: Available projects with clear descriptions and start buttons</li>
+                    <li><strong>Right Panel</strong>: Running projects with status indicators and control buttons</li>
+                    <li><strong>Bottom Controls</strong>: Global actions (refresh, stop all, open docs)</li>
+                    <li><strong>Automatic Guide</strong>: Beginner's tutorial opens on first launch</li>
+                </ul>
+
+                <h4>Project Cards (Left Panel)</h4>
+                <div class="code-block"><pre><code>
+🐍 Python W-2 Processor (Blueprint API)
+📄 Processes W-2 forms and extracts tax information
+Language: python | Default Port: 8000
+[▶️ Start W-2 Processor] [Port: 8000]
+
+🔷 C# W-2 Processor (Blueprint API)  
+📄 Same as Python version but in C#
+Language: csharp | Default Port: 5000
+[▶️ Start C# W-2 Processor] [Port: 5000]
+                </code></pre></div>
+
+                <h4>Running Projects (Right Panel)</h4>
+                <div class="code-block"><pre><code>
+🟢 Python W-2 Processor
+Port: 8000 | PID: 12345 | Type: backend
+http://localhost:8000
+[🌐 Open] [⏹️ Stop] [❤️ Health]
+                </code></pre></div>
+
+                <h3>💻 Command Line Interface</h3>
+                <h4>Basic Usage</h4>
+                <div class="code-block"><pre><code>
+python project_manager.py &lt;project-name&gt; &lt;backend-or-frontend&gt; &lt;start/stop&gt; &lt;port&gt;
+                </code></pre></div>
+
+                <h4>Available Commands</h4>
+                <div class="code-block"><pre><code>
+# List all available projects
+python project_manager.py list
+
+# Show status of running projects  
+python project_manager.py status
+
+# Start Python W-2 processor on default port
+python project_manager.py python_blueprint_api backend start
+
+# Start C# analyzer on custom port
+python project_manager.py csharp_analyze_document backend start 5555
+
+# Stop specific project
+python project_manager.py python_blueprint_api backend stop 8000
+
+# Start documentation portal
+python project_manager.py documentation_portal frontend start 8080
+                </code></pre></div>
+
+                <h3>📚 Beginner's Guide System</h3>
+                <p>The <code>beginner_guide.py</code> creates an interactive tutorial window that:</p>
+                <ul>
+                    <li><strong>Opens automatically</strong> when launching the GUI for the first time</li>
+                    <li><strong>Step-by-step instructions</strong> for testing W-2 processing</li>
+                    <li><strong>Visual explanations</strong> of what each button does</li>
+                    <li><strong>Troubleshooting tips</strong> for common issues</li>
+                    <li><strong>Expected results</strong> for successful tests</li>
+                </ul>
+
+                <h4>Running the Guide Separately</h4>
+                <div class="code-block"><pre><code>
+# Open just the beginner's guide
+python Startup/beginner_guide.py
+
+# The guide covers:
+# 1. What the system does
+# 2. How to choose which service to test
+# 3. Starting services and checking status
+# 4. Opening services in browser
+# 5. Testing W-2 processing with sample files
+# 6. Understanding results
+# 7. Comparing Python vs C# implementations
+                </code></pre></div>
+
+                <h3>⚙️ Project Configuration</h3>
+                <p>All projects are defined in <code>project_config.json</code>:</p>
+                <div class="code-block"><pre><code>
+{
+  "python_blueprint_api": {
+    "type": "backend",
+    "language": "python", 
+    "path": "python/BlueprintAPI",
+    "start_command": "python src/api.py",
+    "default_port": 8000,
+    "health_endpoint": "/health"
+  },
+  "csharp_blueprint_api": {
+    "type": "backend",
+    "language": "csharp",
+    "path": "csharp/BlueprintAPI", 
+    "start_command": "dotnet run",
+    "default_port": 5000,
+    "health_endpoint": "/api/document/health"
+  }
+}
+                </code></pre></div>
+
+                <h3>🧪 Testing Workflow</h3>
+                <h4>Complete W-2 Testing Process</h4>
+                <ol>
+                    <li><strong>Launch GUI</strong>: <code>python Startup/startup.py</code></li>
+                    <li><strong>Read Guide</strong>: Follow the automatic beginner's guide</li>
+                    <li><strong>Start Service</strong>: Click "Start W-2 Processor" (Python or C#)</li>
+                    <li><strong>Verify Running</strong>: Check for 🟢 green dot in right panel</li>
+                    <li><strong>Open Browser</strong>: Click the blue link (http://localhost:8000)</li>
+                    <li><strong>Access API Docs</strong>: Add <code>/docs</code> to URL for Swagger interface</li>
+                    <li><strong>Test W-2 Processing</strong>: Use <code>POST /process/w2</code> endpoint</li>
+                    <li><strong>Upload Sample</strong>: Use <code>test_files/sample_w2.txt</code></li>
+                    <li><strong>Verify Results</strong>: Check extracted employee, employer, and tax data</li>
+                    <li><strong>Compare Languages</strong>: Test both Python and C# versions</li>
+                </ol>
+
+                <h3>📊 Process Management</h3>
+                <ul>
+                    <li><strong>PID Tracking</strong>: All processes tracked with process IDs</li>
+                    <li><strong>Health Monitoring</strong>: Built-in health check endpoints</li>
+                    <li><strong>Graceful Shutdown</strong>: SIGTERM followed by SIGKILL if needed</li>
+                    <li><strong>Port Management</strong>: Custom port selection and conflict detection</li>
+                    <li><strong>Status Persistence</strong>: Running processes saved to JSON file</li>
+                </ul>
+
+                <h3>🌐 Service URLs</h3>
+                <div class="code-block"><pre><code>
+# When services are running, access them at:
+Python Blueprint API:     http://localhost:8000
+Python Textract:         http://localhost:8001  
+Python Analyze Document: http://localhost:8002
+C# Blueprint API:         http://localhost:5000
+C# Textract:             http://localhost:5001
+C# Analyze Document:     http://localhost:5002
+Documentation Portal:     http://localhost:8080
+
+# API Documentation (Swagger):
+http://localhost:8000/docs  (Python services)
+http://localhost:5000/swagger (C# services)
+                </code></pre></div>
+
+                <h3>🔧 Dependencies</h3>
+                <div class="code-block"><pre><code>
+# Required Python packages:
+requests>=2.25.0    # HTTP client for health checks
+psutil>=5.8.0       # Process management and monitoring
+
+# Built-in modules (no installation needed):
+tkinter             # GUI framework
+threading           # Background tasks
+subprocess          # Process execution
+json                # Configuration management
+webbrowser          # Opening URLs
+                </code></pre></div>
+
+                <h3>🆘 Troubleshooting</h3>
+                <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                    <h4 style="color: #856404;">Common Issues and Solutions:</h4>
+                    <ul style="color: #856404;">
+                        <li><strong>GUI won't open</strong>: Install tkinter: <code>python -m tkinter</code></li>
+                        <li><strong>Dependencies missing</strong>: Run <code>pip install requests psutil</code></li>
+                        <li><strong>Port already in use</strong>: Change port number in GUI or stop conflicting process</li>
+                        <li><strong>Service won't start</strong>: Check project path exists and dependencies installed</li>
+                        <li><strong>Browser shows error</strong>: Wait 10-15 seconds for service to fully start</li>
+                        <li><strong>Health check fails</strong>: Verify service is running and endpoint is correct</li>
+                    </ul>
+                </div>
+
+                <h3>🎯 Success Indicators</h3>
+                <p>You know the system is working when:</p>
+                <ul>
+                    <li>✅ GUI opens with clear project descriptions</li>
+                    <li>✅ Services start and show 🟢 green status</li>
+                    <li>✅ Browser opens to working Swagger documentation</li>
+                    <li>✅ W-2 file uploads successfully</li>
+                    <li>✅ JSON response contains extracted tax data</li>
+                    <li>✅ Both Python and C# versions work identically</li>
+                </ul>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/Startup" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Startup Directory in VS Code
+                    </a>
+                    <a href="#" onclick="python Startup/startup.py" class="vscode-link" style="margin-left: 1rem; background: #27ae60;">
+                        <i class="fas fa-rocket"></i>
+                        Launch Startup Manager
+                    </a>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

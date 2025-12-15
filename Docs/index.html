@@ -1,26 +1,276 @@
-<!doctype html>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset='utf-8' />
-<meta name='viewport' content='width=device-width, initial-scale=1' />
-<title>ai016BdaStrategiesDemo Docs</title>
-<link rel='stylesheet' href='assets/styles.css'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Strategies Demo - Documentation Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
 </head>
 <body>
-<div class='wrap'>
-<div class='top'>
-<div class='brand'><div class='logo'></div><div>
-<h1>ai016BdaStrategiesDemo • Documentation</h1>
-<p>Generated locally • 2025-12-13 21:31:03</p>
-</div></div>
-<div class='badges'><div class='badge'>Cards</div><div class='badge'>HTML + CSS</div><div class='badge'>BDA</div></div>
-</div>
-<div class='hero'><h2>Docs portal</h2><p>Click a card to open real documentation (not stubs).</p></div>
-<div class='grid'>
-<a class='card' href='bda-strategies.html'><h3>BDA Strategies</h3><p>Usable flows, when to use each, what you must build.</p><div class='pillrow'><span class='pill'>W-2</span><span class='pill'>Bank</span><span class='pill'>Blueprints</span></div></a>
-<a class='card' href='implementation-roadmap.html'><h3>Implementation Roadmap</h3><p>Prototype → automate → normalize → publish.</p><div class='pillrow'><span class='pill'>S3</span><span class='pill'>Lambda</span><span class='pill'>Step Functions</span></div></a>
-<a class='card' href='security-privacy.html'><h3>Security &amp; Privacy</h3><p>PII checklist and guardrails for financial docs.</p><div class='pillrow'><span class='pill'>KMS</span><span class='pill'>IAM</span><span class='pill'>Retention</span></div></a>
-</div>
-</div>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-file-alt"></i>
+                BDA Strategies Demo
+            </h1>
+            <p class="subtitle">Business Document Analysis with AWS Services</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="intro">
+                <h2>Documentation Portal</h2>
+                <p>Explore our comprehensive Business Document Analysis implementation using three different AWS patterns, available in both Python and C#.</p>
+                
+                <!-- Quick Start Guide -->
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: white; margin-bottom: 15px;">🚀 Quick Start</h3>
+                    <div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; font-family: 'Fira Code', monospace;">
+                        <span style="color: #79c0ff;">python</span> <span style="color: #a5d6ff;">Startup/startup.py</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin-top: 10px; font-size: 14px;">
+                        Run this command from the project root to start the BDA Project Manager GUI
+                    </p>
+                </div>
+            </section>
+
+            <section class="cards-grid">
+                <!-- Overview Cards -->
+                <div class="card overview-card" onclick="navigateToCard('overview.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Project Overview</h3>
+                    <p>Architecture, patterns, and implementation strategy for BDA solutions</p>
+                    <div class="card-footer">
+                        <span class="tag">Documentation</span>
+                    </div>
+                </div>
+
+                <!-- Python Implementation Cards -->
+                <div class="card python-card" onclick="navigateToCard('python-blueprint.html')">
+                    <div class="card-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python BlueprintAPI</h3>
+                    <p>FastAPI implementation using AWS Blueprint API for document processing</p>
+                    <div class="card-footer">
+                        <span class="tag python">Python</span>
+                        <span class="tag">FastAPI</span>
+                    </div>
+                </div>
+
+                <div class="card python-card" onclick="navigateToCard('python-textract.html')">
+                    <div class="card-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python Textract</h3>
+                    <p>Direct AWS Textract integration with Lambda functions</p>
+                    <div class="card-footer">
+                        <span class="tag python">Python</span>
+                        <span class="tag">Lambda</span>
+                    </div>
+                </div>
+
+                <div class="card python-card" onclick="navigateToCard('python-analyze.html')">
+                    <div class="card-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python AnalyzeDocument</h3>
+                    <p>Enhanced Textract SDK with advanced image processing capabilities</p>
+                    <div class="card-footer">
+                        <span class="tag python">Python</span>
+                        <span class="tag">Advanced</span>
+                    </div>
+                </div>
+
+                <!-- C# Implementation Cards -->
+                <div class="card csharp-card" onclick="navigateToCard('csharp-blueprint.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C# BlueprintAPI</h3>
+                    <p>ASP.NET Core implementation using AWS Blueprint API</p>
+                    <div class="card-footer">
+                        <span class="tag csharp">C#</span>
+                        <span class="tag">ASP.NET</span>
+                    </div>
+                </div>
+
+                <div class="card csharp-card" onclick="navigateToCard('csharp-textract.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C# Textract</h3>
+                    <p>.NET Lambda functions with direct Textract integration</p>
+                    <div class="card-footer">
+                        <span class="tag csharp">C#</span>
+                        <span class="tag">Lambda</span>
+                    </div>
+                </div>
+
+                <div class="card csharp-card" onclick="navigateToCard('csharp-analyze.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>C# AnalyzeDocument</h3>
+                    <p>Advanced .NET implementation with ImageSharp and OpenCV</p>
+                    <div class="card-footer">
+                        <span class="tag csharp">C#</span>
+                        <span class="tag">Advanced</span>
+                    </div>
+                </div>
+
+                <!-- Shared Resources Cards -->
+                <div class="card shared-card" onclick="navigateToCard('shared-resources.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Shared Resources</h3>
+                    <p>Common utilities, configurations, and sample documents</p>
+                    <div class="card-footer">
+                        <span class="tag">Utilities</span>
+                    </div>
+                </div>
+
+                <!-- Deployment Cards -->
+                <div class="card deployment-card" onclick="navigateToCard('deployment.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Deployment Guide</h3>
+                    <p>AWS deployment strategies for Lambda, ECS, and API Gateway</p>
+                    <div class="card-footer">
+                        <span class="tag">AWS</span>
+                        <span class="tag">DevOps</span>
+                    </div>
+                </div>
+
+                <!-- Development Setup Card -->
+                <div class="card setup-card" onclick="navigateToCard('development-setup.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Development Setup</h3>
+                    <p>VS Code and Visual Studio configuration for both Python and C#</p>
+                    <div class="card-footer">
+                        <span class="tag">Setup</span>
+                        <span class="tag">IDE</span>
+                    </div>
+                </div>
+
+                <!-- Python API Examples Card -->
+                <div class="card api-card" onclick="navigateToCard('bda-api-examples.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>🐍 Python API Examples</h3>
+                    <p>Complete Python API guide with real examples, curl commands, and responses for AWS Business Document Analysis</p>
+                    <div class="card-footer">
+                        <span class="tag python">Python</span>
+                        <span class="tag">API Examples</span>
+                        <span class="tag">Port 8000</span>
+                    </div>
+                </div>
+
+                <!-- C# API Examples Card -->
+                <div class="card csharp-api-card" onclick="navigateToCard('csharp-api-examples.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>🔷 C# API Examples</h3>
+                    <p>Complete C# API guide with identical functionality to Python - ASP.NET Core implementation with real AWS integration</p>
+                    <div class="card-footer">
+                        <span class="tag csharp">C#</span>
+                        <span class="tag">API Examples</span>
+                        <span class="tag">Port 5000</span>
+                    </div>
+                </div>
+
+                <!-- W-2 Document Flow Card -->
+                <div class="card workflow-card" onclick="navigateToCard('w2-document-flow.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>📄 W-2 Document Flow</h3>
+                    <p>Complete step-by-step workflow showing how to use all APIs in the right order - from project creation to document processing</p>
+                    <div class="card-footer">
+                        <span class="tag">Workflow</span>
+                        <span class="tag">Story-Based</span>
+                        <span class="tag">Best Practices</span>
+                    </div>
+                </div>
+
+                <!-- Project Maintenance Card -->
+                <div class="card maintenance-card" onclick="navigateToCard('project-maintenance.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Project Maintenance</h3>
+                    <p>Dual-language project structure and maintenance guidelines for Kiro sessions</p>
+                    <div class="card-footer">
+                        <span class="tag">Maintenance</span>
+                        <span class="tag">Guidelines</span>
+                    </div>
+                </div>
+
+                <!-- Startup Manager Card -->
+                <div class="card startup-card" onclick="navigateToCard('startup-manager.html')">
+                    <div class="card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Startup Manager</h3>
+                    <p>GUI and command-line tools to start, stop, and manage all BDA projects</p>
+                    <div class="card-footer">
+                        <span class="tag">GUI</span>
+                        <span class="tag">Management</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BDA Strategies Demo. Built with AWS Services.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

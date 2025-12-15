@@ -1,0 +1,58 @@
+{
+  "python_blueprint_api": {
+    "type": "backend",
+    "language": "python",
+    "path": "python/BlueprintAPI",
+    "start_command": "python -m uvicorn src.api:app --host 0.0.0.0 --port 8000",
+    "default_port": 8000,
+    "health_endpoint": "/health"
+  },
+  "python_textract": {
+    "type": "backend",
+    "language": "python",
+    "path": "python/Textract",
+    "start_command": "python src/lambda_local.py",
+    "default_port": 8001,
+    "health_endpoint": "/health"
+  },
+  "python_analyze_document": {
+    "type": "backend",
+    "language": "python",
+    "path": "python/AnalyzeDocument",
+    "start_command": "python src/api.py",
+    "default_port": 8002,
+    "health_endpoint": "/health"
+  },
+  "csharp_blueprint_api": {
+    "type": "backend",
+    "language": "csharp",
+    "path": "csharp/BlueprintAPI",
+    "start_command": "dotnet run --urls=http://localhost:5000 --watch",
+    "default_port": 5000,
+    "health_endpoint": "/health"
+  },
+  "csharp_textract": {
+    "type": "backend",
+    "language": "csharp",
+    "path": "csharp/Textract",
+    "start_command": "dotnet run",
+    "default_port": 5001,
+    "health_endpoint": "/health"
+  },
+  "csharp_analyze_document": {
+    "type": "backend",
+    "language": "csharp",
+    "path": "csharp/AnalyzeDocument",
+    "start_command": "dotnet run",
+    "default_port": 5002,
+    "health_endpoint": "/api/document/health"
+  },
+  "documentation_portal": {
+    "type": "frontend",
+    "language": "html",
+    "path": "Docs",
+    "start_command": "python -m http.server",
+    "default_port": 8080,
+    "health_endpoint": "/index.html"
+  }
+}

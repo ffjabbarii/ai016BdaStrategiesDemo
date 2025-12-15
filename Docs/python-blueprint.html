@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python BlueprintAPI - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fab fa-python"></i>
+                Python BlueprintAPI
+            </h1>
+            <p class="subtitle">FastAPI + AWS Blueprint API Implementation</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>Python BlueprintAPI Project</h2>
+                <p>This implementation uses FastAPI and AWS Blueprint API to provide template-based document processing for W-2 forms and bank statements.</p>
+
+                <h3>Architecture</h3>
+                <div class="code-block"><pre><code>
+Client Request → FastAPI → AWS Blueprint API → Template Processing → Structured Response
+                </code></pre></div>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>FastAPI Framework</strong>: High-performance async REST API</li>
+                    <li><strong>Blueprint Templates</strong>: Pre-configured document templates</li>
+                    <li><strong>Automatic Validation</strong>: Built-in field validation and confidence scoring</li>
+                    <li><strong>Lambda Deployment</strong>: Serverless architecture with API Gateway</li>
+                </ul>
+
+                <h3>Project Structure</h3>
+                <div class="code-block"><pre><code>
+python/BlueprintAPI/
+├── src/
+│   ├── api.py                    # FastAPI application
+│   └── blueprint_processor.py    # Blueprint API integration
+├── requirements.txt              # Python dependencies
+├── deploy.py                     # AWS deployment script
+└── README.md                     # Project documentation
+                </code></pre></div>
+
+                <h3>API Endpoints</h3>
+                <div class="code-block"><pre><code>
+POST /process/w2                  # Process W-2 document
+POST /process/bank-statement      # Process bank statement  
+GET  /health                      # Health check endpoint
+                </code></pre></div>
+
+                <h3>Dependencies</h3>
+                <div class="code-block"><pre><code>
+boto3==1.34.0                    # AWS SDK
+fastapi==0.104.1                 # Web framework
+uvicorn==0.24.0                  # ASGI server
+python-multipart==0.0.6          # File upload support
+pydantic==2.5.0                  # Data validation
+aws-lambda-powertools==2.28.0    # Lambda utilities
+                </code></pre></div>
+
+                <h3>Local Development</h3>
+                <div class="code-block"><pre><code>
+# Install dependencies
+pip install -r requirements.txt
+
+# Run locally
+python src/api.py
+
+# Test endpoints
+curl -X POST "http://localhost:8000/process/w2" \
+     -H "Content-Type: multipart/form-data" \
+     -F "file=@sample_w2.pdf"
+                </code></pre></div>
+
+                <h3>Deployment</h3>
+                <div class="code-block"><pre><code>
+# Configure AWS credentials
+aws configure
+
+# Deploy to Lambda
+python deploy.py
+
+# The deployment creates:
+# - Lambda function: blueprint-api-processor
+# - API Gateway: REST API with endpoints
+# - IAM roles: Lambda execution role with Textract permissions
+                </code></pre></div>
+
+                <h3>VS Code Configuration</h3>
+                <p>For optimal development experience in VS Code:</p>
+                <div class="code-block"><pre><code>
+# .vscode/settings.json
+{
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "black"
+}
+                </code></pre></div>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/python/BlueprintAPI" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open in VS Code
+                    </a>
+                    <a href="https://github.com/ffjabbarii/ai016BdaStrategiesDemo/tree/main/python/BlueprintAPI" class="vscode-link" style="margin-left: 1rem; background: #333;">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+
+                <h3>Sample Usage</h3>
+                <div class="code-block"><pre><code>
+import requests
+
+# Process W-2 document
+with open('sample_w2.pdf', 'rb') as f:
+    response = requests.post(
+        'https://api-gateway-url/process/w2',
+        files={'file': f}
+    )
+
+result = response.json()
+print(f"Employee SSN: {result['extracted_data']['employee_info']['ssn']}")
+print(f"Wages: {result['extracted_data']['tax_info']['wages']}")
+                </code></pre></div>
+
+                <h3>Error Handling</h3>
+                <p>The implementation includes comprehensive error handling:</p>
+                <ul>
+                    <li>Document validation (size, format)</li>
+                    <li>AWS service error handling</li>
+                    <li>Confidence score validation</li>
+                    <li>Structured error responses</li>
+                </ul>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W-2 Document Flow - Complete API Workflow</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .workflow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .story-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .step-card {
+            background: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+            float: left;
+        }
+        .step-content {
+            margin-left: 60px;
+        }
+        .api-call {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            position: relative;
+            overflow-x: auto;
+        }
+        .api-call::before {
+            content: attr(data-label);
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #007bff;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        .response {
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            position: relative;
+            overflow-x: auto;
+        }
+        .response::before {
+            content: 'RESPONSE';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #238636;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        .decision-point {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .decision-icon {
+            color: #ffc107;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .flow-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        .language-tabs {
+            display: flex;
+            margin: 20px 0;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background: #007bff;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        .outcome-success {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .outcome-info {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="workflow-container">
+        <header class="header">
+            <h1>📄 W-2 Document Flow - Complete API Workflow</h1>
+            <p>Step-by-step guide to processing W-2 documents using BDA Blueprint APIs</p>
+        </header>
+
+        <!-- Story Introduction -->
+        <div class="story-section">
+            <h2>🏢 The Story: Acme Corp's W-2 Processing Challenge</h2>
+            <p><strong>Scenario:</strong> Acme Corp's HR department receives hundreds of W-2 forms that need to be digitized and processed. They want to use AWS BDA (Business Document Analysis) to automate this workflow.</p>
+            <p><strong>Goal:</strong> Set up a complete document processing pipeline that can extract employee data, tax information, and store documents for compliance.</p>
+        </div>
+
+        <!-- Language Selection -->
+        <div class="language-tabs">
+            <button class="tab active" onclick="showLanguage('python')">🐍 Python Workflow</button>
+            <button class="tab" onclick="showLanguage('csharp')">🔷 C# Workflow</button>
+        </div>
+
+        <!-- Python Workflow -->
+        <div id="python-workflow" class="tab-content active">
+            
+            <!-- Step 1: Health Check -->
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>🏥 Verify System Health</h3>
+                    <p><strong>Why:</strong> Before processing documents, Acme Corp's IT team needs to ensure the BDA system is running and ready.</p>
+                    
+                    <div class="api-call" data-label="HEALTH CHECK">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/health"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"healthy"</span>,
+  <span class="json-key">"version"</span>: <span class="json-string">"3.0.0"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"🚀 Latest Blueprint API code is running!"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-success">
+                        <strong>✅ Outcome:</strong> System is healthy and ready to process documents. The IT team can proceed with confidence.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Step 2: Create Blueprint Project -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>🏗️ Create W-2 Processing Project</h3>
+                    <p><strong>Why:</strong> Acme Corp needs a dedicated project to organize their W-2 documents, create AWS resources (S3 bucket), and potentially train custom adapters for their specific W-2 format.</p>
+                    
+                    <div class="api-call" data-label="CREATE PROJECT">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/create"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"project_name=acme-w2-processing"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"document_type=w2"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"description=Acme Corp W-2 Processing Pipeline"</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_arn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/acme-w2-processing"</span>,
+  <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-acme-w2-processing-1765760000"</span>,
+  <span class="json-key">"adapter_id"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"project_name"</span>: <span class="json-string">"acme-w2-processing"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Blueprint project created in your AWS account"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-success">
+                        <strong>✅ Outcome:</strong> AWS resources created! Acme Corp now has:
+                        <ul>
+                            <li>📦 S3 bucket for document storage</li>
+                            <li>🏷️ Project ARN for tracking</li>
+                            <li>🔧 Infrastructure ready for W-2 processing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Step 3: Upload Sample Documents -->
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>📤 Upload W-2 Documents for Storage</h3>
+                    <p><strong>Why:</strong> Acme Corp wants to store their W-2 documents in AWS S3 for compliance, backup, and potential future training of custom models.</p>
+                    
+                    <div class="api-call" data-label="UPLOAD DOCUMENT">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/project/acme-w2-processing/upload"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@employee-john-doe-w2.pdf;type=application/pdf'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_name"</span>: <span class="json-string">"acme-w2-processing"</span>,
+  <span class="json-key">"filename"</span>: <span class="json-string">"employee-john-doe-w2.pdf"</span>,
+  <span class="json-key">"s3_uri"</span>: <span class="json-string">"s3://bda-blueprint-acme-w2-processing-1765760000/documents/1765760100_employee-john-doe-w2.pdf"</span>,
+  <span class="json-key">"document_key"</span>: <span class="json-string">"documents/1765760100_employee-john-doe-w2.pdf"</span>,
+  <span class="json-key">"upload_timestamp"</span>: <span class="json-number">1765760100</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Document uploaded to Blueprint project in your AWS account"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-success">
+                        <strong>✅ Outcome:</strong> Document securely stored! Benefits:
+                        <ul>
+                            <li>🔒 Secure AWS S3 storage with versioning</li>
+                            <li>📋 Metadata tracking with timestamps</li>
+                            <li>🔍 Searchable document keys</li>
+                            <li>📊 Compliance audit trail</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Step 4: Process W-2 Document -->
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>🔍 Extract Data from W-2 Document</h3>
+                    <p><strong>Why:</strong> This is the core functionality! Acme Corp needs to extract employee information, tax data, and employer details from the W-2 PDF to populate their payroll system.</p>
+                    
+                    <div class="api-call" data-label="PROCESS W-2">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/process/w2"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@employee-john-doe-w2.pdf;type=application/pdf'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-string">"w2"</span>,
+  <span class="json-key">"blueprint_result"</span>: {
+    <span class="json-key">"extracted_data"</span>: {
+      <span class="json-key">"employee_info"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"John Doe"</span>,
+        <span class="json-key">"ssn"</span>: <span class="json-string">"123-45-6789"</span>,
+        <span class="json-key">"address"</span>: <span class="json-string">"123 Main St, Anytown, ST 12345"</span>
+      },
+      <span class="json-key">"employer_info"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"Acme Corporation"</span>,
+        <span class="json-key">"ein"</span>: <span class="json-string">"12-3456789"</span>,
+        <span class="json-key">"address"</span>: <span class="json-string">"456 Business Ave, Corporate City, ST 67890"</span>
+      },
+      <span class="json-key">"tax_info"</span>: {
+        <span class="json-key">"wages"</span>: <span class="json-string">"$75,000.00"</span>,
+        <span class="json-key">"federal_tax_withheld"</span>: <span class="json-string">"$12,500.00"</span>,
+        <span class="json-key">"social_security_wages"</span>: <span class="json-string">"$75,000.00"</span>,
+        <span class="json-key">"medicare_wages"</span>: <span class="json-string">"$75,000.00"</span>
+      },
+      <span class="json-key">"confidence_scores"</span>: {
+        <span class="json-key">"average"</span>: <span class="json-number">99.76</span>,
+        <span class="json-key">"minimum"</span>: <span class="json-number">95.2</span>,
+        <span class="json-key">"maximum"</span>: <span class="json-number">100.0</span>
+      }
+    },
+    <span class="json-key">"processing_metadata"</span>: {
+      <span class="json-key">"method"</span>: <span class="json-string">"standard_textract_fallback"</span>,
+      <span class="json-key">"blocks_processed"</span>: <span class="json-number">281</span>
+    }
+  },
+  <span class="json-key">"message"</span>: <span class="json-string">"Document processed using real AWS Blueprint API"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-success">
+                        <strong>✅ Outcome:</strong> Perfect extraction! Acme Corp now has:
+                        <ul>
+                            <li>👤 Employee data (name, SSN, address)</li>
+                            <li>🏢 Employer information (EIN, company details)</li>
+                            <li>💰 Tax information (wages, withholdings)</li>
+                            <li>📊 High confidence scores (99.76% average)</li>
+                            <li>🔧 Processing metadata for audit trails</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Step 5: Monitor Project Status -->
+            <div class="step-card">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h3>📊 Monitor Processing Pipeline</h3>
+                    <p><strong>Why:</strong> Acme Corp's operations team needs to monitor the health of their W-2 processing pipeline, track document counts, and ensure everything is running smoothly.</p>
+                    
+                    <div class="api-call" data-label="PROJECT STATUS">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/project/arn:aws:textract:us-east-1:blueprint:project/acme-w2-processing/status"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_status"</span>: {
+    <span class="json-key">"project_name"</span>: <span class="json-string">"acme-w2-processing"</span>,
+    <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>,
+    <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-acme-w2-processing-1765760000"</span>,
+    <span class="json-key">"document_count"</span>: <span class="json-number">1</span>,
+    <span class="json-key">"created_at"</span>: <span class="json-number">1765760000</span>,
+    <span class="json-key">"last_updated"</span>: <span class="json-number">1765760100</span>
+  }
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-info">
+                        <strong>📈 Monitoring Benefits:</strong>
+                        <ul>
+                            <li>📊 Real-time document count tracking</li>
+                            <li>🔍 Project health monitoring</li>
+                            <li>⏰ Activity timestamps for auditing</li>
+                            <li>🎯 Performance metrics for optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Step 6: List All Projects -->
+            <div class="step-card">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <h3>📋 View All Processing Projects</h3>
+                    <p><strong>Why:</strong> As Acme Corp scales, they might have multiple document processing projects (W-2s, 1099s, invoices). This API helps them manage their entire BDA portfolio.</p>
+                    
+                    <div class="api-call" data-label="LIST PROJECTS">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/projects"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"projects"</span>: [
+    {
+      <span class="json-key">"project_name"</span>: <span class="json-string">"acme-w2-processing"</span>,
+      <span class="json-key">"document_type"</span>: <span class="json-string">"w2"</span>,
+      <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>,
+      <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-acme-w2-processing-1765760000"</span>,
+      <span class="json-key">"processing_mode"</span>: <span class="json-string">"standard_textract"</span>
+    }
+  ],
+  <span class="json-key">"count"</span>: <span class="json-number">1</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Found 1 Blueprint projects in your AWS account"</span>
+}</code></pre>
+                    </div>
+
+                    <div class="outcome-success">
+                        <strong>✅ Portfolio Management:</strong> Acme Corp can now:
+                        <ul>
+                            <li>📊 View all document processing projects</li>
+                            <li>🔍 Track project statuses across the organization</li>
+                            <li>📈 Plan capacity and scaling</li>
+                            <li>🎯 Optimize resource allocation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- C# Workflow -->
+        <div id="csharp-workflow" class="tab-content">
+            <div class="step-card">
+                <div class="step-number">🔷</div>
+                <div class="step-content">
+                    <h3>C# Implementation - Identical Workflow</h3>
+                    <p>The C# implementation provides <strong>identical functionality</strong> with the same API endpoints, just on a different port:</p>
+                    
+                    <div class="outcome-info">
+                        <strong>🔄 Port Difference:</strong>
+                        <ul>
+                            <li>🐍 <strong>Python APIs:</strong> <code>http://localhost:8000</code></li>
+                            <li>🔷 <strong>C# APIs:</strong> <code>http://localhost:5000</code></li>
+                        </ul>
+                    </div>
+
+                    <p><strong>Example C# Health Check:</strong></p>
+                    <div class="api-call" data-label="C# HEALTH CHECK">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:5000/health"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+
+                    <div class="response">
+<pre><code>{
+  <span class="json-key">"status"</span>: <span class="json-string">"healthy"</span>,
+  <span class="json-key">"version"</span>: <span class="json-string">"3.0.0"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"🚀 Latest C# Blueprint API code is running!"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+}</code></pre>
+                    </div>
+
+                    <p><strong>All other steps are identical</strong> - just replace <code>:8000</code> with <code>:5000</code> in the URLs!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decision Points -->
+        <div class="decision-point">
+            <span class="decision-icon">🤔</span>
+            <strong>Decision Point: Which API Order Should You Use?</strong>
+            
+            <h4>📋 For New Projects (Recommended Order):</h4>
+            <ol>
+                <li><strong>Health Check</strong> → Verify system is ready</li>
+                <li><strong>Create Project</strong> → Set up AWS resources</li>
+                <li><strong>Upload Documents</strong> → Store for compliance/training</li>
+                <li><strong>Process Documents</strong> → Extract data</li>
+                <li><strong>Monitor Status</strong> → Track progress</li>
+            </ol>
+
+            <h4>🚀 For Quick Processing (Minimal Order):</h4>
+            <ol>
+                <li><strong>Health Check</strong> → Verify system</li>
+                <li><strong>Process Documents</strong> → Direct extraction (no storage)</li>
+            </ol>
+
+            <h4>📊 For Management/Monitoring:</h4>
+            <ol>
+                <li><strong>List Projects</strong> → See all projects</li>
+                <li><strong>Project Status</strong> → Monitor specific projects</li>
+            </ol>
+        </div>
+
+        <!-- Success Summary -->
+        <div class="story-section">
+            <h2>🎉 Success! Acme Corp's W-2 Processing Pipeline</h2>
+            <p><strong>Result:</strong> Acme Corp now has a complete, automated W-2 processing system that can:</p>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>✅ Process hundreds of W-2 documents automatically</li>
+                <li>✅ Extract employee and tax data with 99%+ accuracy</li>
+                <li>✅ Store documents securely in AWS S3 for compliance</li>
+                <li>✅ Monitor processing pipeline health and performance</li>
+                <li>✅ Scale to handle peak tax season volumes</li>
+                <li>✅ Integrate with existing payroll and HR systems</li>
+            </ul>
+            <p><strong>Time Saved:</strong> From 40 hours of manual data entry to 2 hours of automated processing per week!</p>
+        </div>
+
+    </div>
+
+    <script>
+        function showLanguage(language) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected content and activate tab
+            document.getElementById(language + '-workflow').classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

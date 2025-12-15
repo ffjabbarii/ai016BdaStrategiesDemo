@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/BlueprintAPI.csproj": {}
+  },
+  "projects": {
+    "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/BlueprintAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/BlueprintAPI.csproj",
+        "projectName": "BlueprintAPI",
+        "projectPath": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/BlueprintAPI.csproj",
+        "packagesPath": "/Users/fjabbari/.nuget/packages/",
+        "outputPath": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/fjabbari/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AWSSDK.Extensions.NETCore.Setup": {
+              "target": "Package",
+              "version": "[3.7.7, )"
+            },
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.Textract": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[7.0.20, 7.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.20, 7.0.20]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

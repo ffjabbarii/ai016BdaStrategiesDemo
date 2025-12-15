@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Maintenance - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-sync-alt"></i>
+                Project Maintenance
+            </h1>
+            <p class="subtitle">Dual-Language Project Guidelines for Kiro Sessions</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>🚨 CRITICAL: Dual-Language Project Maintenance</h2>
+                <p><strong>This is a dual-language BDA project that MUST maintain both Python and C# implementations in parallel.</strong></p>
+
+                <div style="background: #fed7d7; border: 2px solid #e53e3e; border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                    <h3 style="color: #c53030; margin-bottom: 1rem;">⚠️ MANDATORY REQUIREMENTS FOR ALL KIRO SESSIONS</h3>
+                    <ul style="color: #742a2a;">
+                        <li><strong>ALWAYS maintain both Python AND C# versions</strong></li>
+                        <li><strong>Every change must be implemented in BOTH languages</strong></li>
+                        <li><strong>User compiles in VS Code and Visual Studio - fix compilation errors</strong></li>
+                        <li><strong>User does NOT use Kiro IDE - prefers external IDEs</strong></li>
+                    </ul>
+                </div>
+
+                <h3>Project Structure Overview</h3>
+                <div class="code-block"><pre><code>
+ai016BdaStrategiesDemo/
+├── python/                    # 🐍 Python implementations
+│   ├── BlueprintAPI/         # FastAPI + AWS Blueprint API
+│   ├── Textract/             # Lambda + Direct Textract
+│   └── AnalyzeDocument/      # Enhanced Textract with OpenCV
+├── csharp/                   # 🔷 C# implementations
+│   ├── BlueprintAPI/         # ASP.NET Core + AWS Blueprint API
+│   ├── Textract/             # Lambda + Direct Textract
+│   └── AnalyzeDocument/      # Enhanced Textract with ImageSharp
+├── shared/                   # 📁 Common resources
+│   ├── documents/            # Sample W-2 and bank statements
+│   ├── config/              # AWS configuration
+│   └── utils/               # Shared utilities
+└── Docs/                    # 📚 Documentation portal
+</code></pre></div>
+
+                <h3>🔄 Automatic Dual-Language Maintenance</h3>
+                <p><strong>When the user requests ANY change, you MUST:</strong></p>
+                <ol>
+                    <li><strong>Implement the change in Python version</strong></li>
+                    <li><strong>Implement the equivalent change in C# version</strong></li>
+                    <li><strong>Maintain functional parity between both implementations</strong></li>
+                    <li><strong>Update documentation if needed</strong></li>
+                    <li><strong>Do NOT ask the user if they want both - ALWAYS do both</strong></li>
+                </ol>
+
+                <h3>🏗️ User Development Workflow</h3>
+                <div style="background: #e6fffa; border: 2px solid #38b2ac; border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                    <h4 style="color: #2c7a7b;">User's Preferred Development Process:</h4>
+                    <ol style="color: #285e61;">
+                        <li><strong>Kiro creates/modifies code</strong> in both Python and C#</li>
+                        <li><strong>User opens in VS Code</strong> for cross-platform development</li>
+                        <li><strong>User opens in Visual Studio</strong> for advanced C# features</li>
+                        <li><strong>User compiles and builds</strong> in their preferred IDE</li>
+                        <li><strong>User pastes compilation errors</strong> back to Kiro for fixes</li>
+                        <li><strong>Iterate until successful build</strong></li>
+                        <li><strong>User pushes to Git</strong> (local and remote)</li>
+                    </ol>
+                </div>
+
+                <h3>📋 Implementation Patterns</h3>
+                <h4>Python Implementation Standards</h4>
+                <div class="code-block"><pre><code>
+# Framework: FastAPI for APIs, boto3 for AWS
+# Structure: src/ directory with main modules
+# Dependencies: requirements.txt
+# Deployment: AWS Lambda, Docker containers
+# Testing: pytest
+# Formatting: black, pylint
+
+# Example structure:
+python/ProjectName/
+├── src/
+│   ├── api.py                # FastAPI application
+│   └── processor.py          # Business logic
+├── requirements.txt          # Dependencies
+├── deploy.py                # Deployment script
+└── README.md                # Documentation
+</code></pre></div>
+
+                <h4>C# Implementation Standards</h4>
+                <div class="code-block"><pre><code>
+// Framework: ASP.NET Core for APIs, AWS SDK for .NET
+// Structure: Controllers/, Services/, Models/ directories
+// Dependencies: .csproj with PackageReference
+// Deployment: AWS Lambda, Docker containers, ECS
+// Testing: xUnit, NUnit
+// Formatting: dotnet format
+
+// Example structure:
+csharp/ProjectName/
+├── Controllers/              # API controllers
+├── Services/                # Business logic
+├── Models/                  # Data models
+├── Program.cs               # Application entry
+├── ProjectName.csproj       # Project file
+└── README.md                # Documentation
+</code></pre></div>
+
+                <h3>🎯 Three BDA Patterns (Both Languages)</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2rem 0;">
+                    <div style="background: #f7fafc; padding: 1rem; border-radius: 8px;">
+                        <h4>1. BlueprintAPI</h4>
+                        <p><strong>Pattern:</strong> AWS Blueprint API</p>
+                        <p><strong>Python:</strong> FastAPI + boto3</p>
+                        <p><strong>C#:</strong> ASP.NET Core + AWS SDK</p>
+                    </div>
+                    <div style="background: #f7fafc; padding: 1rem; border-radius: 8px;">
+                        <h4>2. Textract</h4>
+                        <p><strong>Pattern:</strong> Direct Textract API</p>
+                        <p><strong>Python:</strong> Lambda + boto3</p>
+                        <p><strong>C#:</strong> Lambda + AWS SDK</p>
+                    </div>
+                    <div style="background: #f7fafc; padding: 1rem; border-radius: 8px;">
+                        <h4>3. AnalyzeDocument</h4>
+                        <p><strong>Pattern:</strong> Enhanced Textract</p>
+                        <p><strong>Python:</strong> OpenCV + advanced processing</p>
+                        <p><strong>C#:</strong> ImageSharp + advanced processing</p>
+                    </div>
+                </div>
+
+                <h3>🔧 Compilation and Build Requirements</h3>
+                <h4>Python Build Process</h4>
+                <div class="code-block"><pre><code>
+# User will run these commands in VS Code terminal:
+cd python/ProjectName
+pip install -r requirements.txt
+python src/api.py
+
+# If errors occur, user will paste them to Kiro for fixes
+# Common issues: import errors, dependency conflicts, syntax errors
+</code></pre></div>
+
+                <h4>C# Build Process</h4>
+                <div class="code-block"><pre><code>
+// User will run these commands in Visual Studio or VS Code:
+cd csharp/ProjectName
+dotnet restore
+dotnet build
+dotnet run
+
+// If errors occur, user will paste them to Kiro for fixes
+// Common issues: NuGet package conflicts, namespace errors, compilation errors
+</code></pre></div>
+
+                <h3>📝 Documentation Maintenance</h3>
+                <p>When making changes, also update:</p>
+                <ul>
+                    <li><strong>README.md files</strong> in both language implementations</li>
+                    <li><strong>Documentation portal</strong> (Docs/ directory) if needed</li>
+                    <li><strong>Code comments</strong> and inline documentation</li>
+                    <li><strong>API documentation</strong> (Swagger for C#, FastAPI docs for Python)</li>
+                </ul>
+
+                <h3>🚀 Deployment Considerations</h3>
+                <div class="code-block"><pre><code>
+# Both implementations support:
+- AWS Lambda deployment
+- Docker containerization  
+- API Gateway integration
+- ECS/Fargate deployment (C# primarily)
+- Local development servers
+
+# Maintain deployment parity where possible
+# Document any deployment differences between languages
+</code></pre></div>
+
+                <h3>✅ Quality Checklist for Kiro Sessions</h3>
+                <div style="background: #f0fff4; border: 2px solid #38a169; border-radius: 8px; padding: 1.5rem; margin: 2rem 0;">
+                    <h4 style="color: #2f855a;">Before completing any task, ensure:</h4>
+                    <ul style="color: #276749;">
+                        <li>✅ Both Python and C# versions are updated</li>
+                        <li>✅ Functional parity between implementations</li>
+                        <li>✅ Code follows language-specific best practices</li>
+                        <li>✅ Dependencies are properly specified</li>
+                        <li>✅ Documentation is updated if needed</li>
+                        <li>✅ Ready for user to compile in VS Code/Visual Studio</li>
+                    </ul>
+                </div>
+
+                <h3>🎯 Success Metrics</h3>
+                <p>A successful Kiro session should result in:</p>
+                <ul>
+                    <li><strong>Clean compilation</strong> in both Python and C# versions</li>
+                    <li><strong>Functional equivalence</strong> between language implementations</li>
+                    <li><strong>User satisfaction</strong> with VS Code and Visual Studio workflow</li>
+                    <li><strong>Successful Git commits</strong> after user testing</li>
+                </ul>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Full Project in VS Code
+                    </a>
+                    <a href="https://github.com/ffjabbarii/ai016BdaStrategiesDemo" class="vscode-link" style="margin-left: 1rem; background: #333;">
+                        <i class="fab fa-github"></i>
+                        View Project on GitHub
+                    </a>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Resources - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-share-alt"></i>
+                Shared Resources
+            </h1>
+            <p class="subtitle">Common Utilities and Configuration</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>Shared Resources Overview</h2>
+                <p>The shared directory contains common resources used across all Python and C# implementations, ensuring consistency and reducing duplication.</p>
+
+                <h3>Directory Structure</h3>
+                <div class="code-block"><pre><code>
+shared/
+├── config/
+│   └── aws-config.json          # AWS service configuration
+├── documents/
+│   ├── sample_w2.json           # Sample W-2 data structure
+│   └── sample_bank_statement.json # Sample bank statement data
+├── utils/
+│   └── document_validator.py    # Document validation utilities
+└── README.md                    # Shared resources documentation
+                </code></pre></div>
+
+                <h3>AWS Configuration</h3>
+                <p>Central configuration for AWS services and document processing settings:</p>
+                <div class="code-block"><pre><code>
+{
+  "region": "us-east-1",
+  "services": {
+    "textract": {
+      "endpoint": "https://textract.us-east-1.amazonaws.com"
+    },
+    "blueprint": {
+      "endpoint": "https://blueprint.us-east-1.amazonaws.com"
+    }
+  },
+  "document_types": {
+    "w2": {
+      "mime_types": ["image/jpeg", "image/png", "application/pdf"],
+      "max_size_mb": 10
+    },
+    "bank_statement": {
+      "mime_types": ["image/jpeg", "image/png", "application/pdf"],
+      "max_size_mb": 10
+    }
+  }
+}
+                </code></pre></div>
+
+                <h3>Sample Documents</h3>
+                <h4>W-2 Sample Structure</h4>
+                <div class="code-block"><pre><code>
+{
+  "document_type": "w2",
+  "sample_data": {
+    "employee_info": {
+      "ssn": "123-45-6789",
+      "name": "John Doe",
+      "address": "123 Main St, Anytown, ST 12345"
+    },
+    "employer_info": {
+      "ein": "12-3456789",
+      "name": "Sample Corporation",
+      "address": "456 Business Ave, Corporate City, ST 67890"
+    },
+    "tax_info": {
+      "wages": "75000.00",
+      "federal_tax_withheld": "12500.00",
+      "social_security_wages": "75000.00",
+      "medicare_wages": "75000.00"
+    }
+  }
+}
+                </code></pre></div>
+
+                <h4>Bank Statement Sample Structure</h4>
+                <div class="code-block"><pre><code>
+{
+  "document_type": "bank_statement",
+  "sample_data": {
+    "account_info": {
+      "account_number": "1234567890",
+      "routing_number": "021000021",
+      "account_holder": "John Doe",
+      "bank_name": "Sample Bank"
+    },
+    "statement_period": {
+      "start_date": "2024-01-01",
+      "end_date": "2024-01-31"
+    },
+    "transactions": [
+      {
+        "date": "2024-01-02",
+        "description": "Direct Deposit - Salary",
+        "amount": "3000.00",
+        "type": "credit"
+      }
+    ]
+  }
+}
+                </code></pre></div>
+
+                <h3>Document Validator Utility</h3>
+                <p>Python utility class for document validation (can be ported to C#):</p>
+                <div class="code-block"><pre><code>
+class DocumentValidator:
+    def __init__(self, config_path: str = None):
+        # Load configuration from aws-config.json
+        
+    def validate_document_type(self, file_path: str, doc_type: str):
+        """Validate document against type requirements"""
+        # Check file size, format, etc.
+        
+    def get_supported_formats(self, doc_type: str):
+        """Get supported MIME types for document type"""
+        # Return list of supported formats
+                </code></pre></div>
+
+                <h3>Usage in Python Projects</h3>
+                <div class="code-block"><pre><code>
+# Import shared utilities
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'shared'))
+
+from utils.document_validator import DocumentValidator
+
+# Use validator
+validator = DocumentValidator()
+result = validator.validate_document_type('document.pdf', 'w2')
+
+if result['valid']:
+    # Process document
+    pass
+else:
+    # Handle validation errors
+    print(f"Validation errors: {result['errors']}")
+                </code></pre></div>
+
+                <h3>Usage in C# Projects</h3>
+                <p>C# equivalent implementation (create as needed):</p>
+                <div class="code-block"><pre><code>
+// DocumentValidator.cs
+public class DocumentValidator
+{
+    private readonly AwsConfig _config;
+    
+    public DocumentValidator(string configPath = null)
+    {
+        // Load configuration from aws-config.json
+    }
+    
+    public ValidationResult ValidateDocumentType(string filePath, string docType)
+    {
+        // Implement validation logic
+    }
+    
+    public List&lt;string&gt; GetSupportedFormats(string docType)
+    {
+        // Return supported MIME types
+    }
+}
+                </code></pre></div>
+
+                <h3>Configuration Management</h3>
+                <h4>Environment-Specific Configs</h4>
+                <div class="code-block"><pre><code>
+# Development
+shared/config/aws-config.dev.json
+
+# Production  
+shared/config/aws-config.prod.json
+
+# Load based on environment
+config_file = f"aws-config.{os.getenv('ENVIRONMENT', 'dev')}.json"
+                </code></pre></div>
+
+                <h4>Secrets Management</h4>
+                <div class="code-block"><pre><code>
+# Never commit secrets to shared config
+# Use AWS Secrets Manager or environment variables
+
+# Example environment variables
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_DEFAULT_REGION=us-east-1
+                </code></pre></div>
+
+                <h3>Testing Resources</h3>
+                <div class="code-block"><pre><code>
+shared/test-data/
+├── w2_samples/
+│   ├── valid_w2.pdf
+│   ├── invalid_format.txt
+│   └── oversized_w2.pdf
+├── bank_statement_samples/
+│   ├── valid_statement.pdf
+│   ├── multi_page_statement.pdf
+│   └── corrupted_statement.pdf
+└── expected_results/
+    ├── w2_expected.json
+    └── statement_expected.json
+                </code></pre></div>
+
+                <h3>Best Practices</h3>
+                <ul>
+                    <li><strong>Version Control</strong>: Keep shared resources in version control</li>
+                    <li><strong>Documentation</strong>: Document all shared utilities and configs</li>
+                    <li><strong>Backward Compatibility</strong>: Maintain compatibility when updating shared resources</li>
+                    <li><strong>Testing</strong>: Test shared utilities across all implementations</li>
+                    <li><strong>Security</strong>: Never commit sensitive data to shared configs</li>
+                </ul>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/shared" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Shared Resources in VS Code
+                    </a>
+                    <a href="https://github.com/ffjabbarii/ai016BdaStrategiesDemo/tree/main/shared" class="vscode-link" style="margin-left: 1rem; background: #333;">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                </div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

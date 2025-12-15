@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# BlueprintAPI - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        pre code {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-code"></i>
+                C# BlueprintAPI
+            </h1>
+            <p class="subtitle">ASP.NET Core + AWS Blueprint API Implementation</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>C# BlueprintAPI Project</h2>
+                <p>This implementation uses ASP.NET Core and AWS Blueprint API to provide enterprise-grade document processing with strong typing and dependency injection.</p>
+
+                <h3>Architecture</h3>
+                <div class="code-block"><pre><code>
+Client Request → ASP.NET Core → AWS SDK → Blueprint API → Strongly Typed Response
+                </code></pre></div>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>ASP.NET Core 6</strong>: Modern web framework with built-in DI</li>
+                    <li><strong>Strong Typing</strong>: Compile-time safety with C# models</li>
+                    <li><strong>Async/Await</strong>: High-performance asynchronous processing</li>
+                    <li><strong>Swagger Integration</strong>: Auto-generated API documentation</li>
+                    <li><strong>Lambda Support</strong>: Deploy as serverless functions</li>
+                </ul>
+
+                <h3>Project Structure</h3>
+                <div class="code-block"><pre><code>
+csharp/BlueprintAPI/
+├── Controllers/
+│   └── DocumentController.cs     # API endpoints
+├── Services/
+│   ├── IBlueprintProcessor.cs    # Service interface
+│   └── BlueprintProcessor.cs     # Blueprint implementation
+├── Models/
+│   └── DocumentModels.cs         # Data models
+├── Program.cs                    # Application startup
+├── BlueprintAPI.csproj          # Project file
+└── README.md                     # Documentation
+                </code></pre></div>
+
+                <h3>API Endpoints</h3>
+                <div class="code-block"><pre><code>
+POST /api/document/process/w2              # Process W-2 document
+POST /api/document/process/bank-statement  # Process bank statement
+GET  /api/document/health                  # Health check
+                </code></pre></div>
+
+                <h3>Dependencies (NuGet Packages)</h3>
+                <div class="code-block"><pre><code>
+AWSSDK.Textract                  # AWS Textract SDK
+AWSSDK.Extensions.NETCore.Setup  # AWS DI extensions
+Microsoft.AspNetCore.OpenApi     # OpenAPI support
+Swashbuckle.AspNetCore          # Swagger UI
+Newtonsoft.Json                 # JSON serialization
+                </code></pre></div>
+
+                <h3>Data Models</h3>
+                <div class="code-block"><pre><code>
+public class DocumentProcessingResult
+{
+    public string DocumentType { get; set; }
+    public object ExtractedData { get; set; }
+    public ProcessingMetadata ProcessingMetadata { get; set; }
+}
+
+public class W2Data
+{
+    public EmployeeInfo EmployeeInfo { get; set; }
+    public EmployerInfo EmployerInfo { get; set; }
+    public TaxInfo TaxInfo { get; set; }
+    public ConfidenceScores ConfidenceScores { get; set; }
+}
+                </code></pre></div>
+
+                <h3>Local Development</h3>
+                <div class="code-block"><pre><code>
+# Restore dependencies
+dotnet restore
+
+# Run locally
+dotnet run
+
+# Access Swagger UI
+https://localhost:5001/swagger
+
+# Test with curl
+curl -X POST "https://localhost:5001/api/document/process/w2" \
+     -H "Content-Type: multipart/form-data" \
+     -F "file=@sample_w2.pdf"
+                </code></pre></div>
+
+                <h3>Visual Studio Configuration</h3>
+                <p>For optimal development in Visual Studio:</p>
+                <div class="code-block"><pre><code>
+# launchSettings.json
+{
+  "profiles": {
+    "BlueprintAPI": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+                </code></pre></div>
+
+                <h3>Dependency Injection Setup</h3>
+                <div class="code-block"><pre><code>
+// Program.cs
+builder.Services.AddAWSService&lt;IAmazonTextract&gt;();
+builder.Services.AddScoped&lt;IBlueprintProcessor, BlueprintProcessor&gt;();
+
+// Service implementation
+public class BlueprintProcessor : IBlueprintProcessor
+{
+    private readonly IAmazonTextract _textractClient;
+    private readonly ILogger&lt;BlueprintProcessor&gt; _logger;
+
+    public BlueprintProcessor(IAmazonTextract textractClient, 
+                            ILogger&lt;BlueprintProcessor&gt; logger)
+    {
+        _textractClient = textractClient;
+        _logger = logger;
+    }
+}
+                </code></pre></div>
+
+                <h3>Deployment Options</h3>
+                <div class="code-block"><pre><code>
+# Lambda deployment
+dotnet tool install -g Amazon.Lambda.Tools
+dotnet lambda deploy-function
+
+# Container deployment
+docker build -t blueprint-api-csharp .
+docker run -p 8080:80 blueprint-api-csharp
+
+# ECS deployment with AWS CDK
+cdk deploy BlueprintApiStack
+                </code></pre></div>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/csharp/BlueprintAPI" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open in VS Code
+                    </a>
+                    <a href="#" onclick="openInVisualStudio('csharp/BlueprintAPI/BlueprintAPI.csproj')" class="vs-link" style="margin-left: 1rem;">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open in Visual Studio
+                    </a>
+                </div>
+
+                <h3>Sample Usage</h3>
+                <div class="code-block"><pre><code>
+using var client = new HttpClient();
+using var form = new MultipartFormDataContent();
+using var fileContent = new ByteArrayContent(File.ReadAllBytes("sample_w2.pdf"));
+
+form.Add(fileContent, "file", "sample_w2.pdf");
+
+var response = await client.PostAsync(
+    "https://api-url/api/document/process/w2", 
+    form);
+
+var result = await response.Content.ReadFromJsonAsync&lt;DocumentProcessingResult&gt;();
+Console.WriteLine($"Employee SSN: {result.ExtractedData.EmployeeInfo.Ssn}");
+                </code></pre></div>
+
+                <h3>Testing</h3>
+                <div class="code-block"><pre><code>
+# Run unit tests
+dotnet test
+
+# Integration tests with TestServer
+public class DocumentControllerTests : IClassFixture&lt;WebApplicationFactory&lt;Program&gt;&gt;
+{
+    private readonly WebApplicationFactory&lt;Program&gt; _factory;
+
+    [Fact]
+    public async Task ProcessW2_ReturnsSuccess()
+    {
+        // Test implementation
+    }
+}
+                </code></pre></div>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

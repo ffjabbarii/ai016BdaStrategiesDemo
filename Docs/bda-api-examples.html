@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Blueprint and Textract API Examples</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .api-section {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .api-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .textract { background: #28a745; color: white; }
+        .blueprint { background: #007bff; color: white; }
+        .management { background: #6c757d; color: white; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #333;
+            position: relative;
+        }
+        .code-block::before {
+            content: 'CURL';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #007acc;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        .response-block {
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+        .response-block::before {
+            content: 'JSON RESPONSE';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #238636;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        /* JSON Syntax Highlighting */
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+        
+        /* Copy button for code blocks */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 50px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .code-block:hover .copy-btn,
+        .response-block:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .workflow-step {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚀 BDA Blueprint and Textract API Examples</h1>
+            <p>Complete guide with real API calls, inputs, and outputs for AWS Business Document Analysis</p>
+        </header>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <section class="card">
+                <h2>📋 API Overview</h2>
+                <p>This guide demonstrates the complete BDA (Business Document Analysis) workflow using real AWS services:</p>
+                
+                <div class="workflow-step">
+                    <span class="step-number">1</span>
+                    <strong>Blueprint Management</strong> - Create and manage AWS Blueprint projects
+                </div>
+                <div class="workflow-step">
+                    <span class="step-number">2</span>
+                    <strong>Document Storage</strong> - Upload documents to AWS S3 for processing
+                </div>
+                <div class="workflow-step">
+                    <span class="step-number">3</span>
+                    <strong>Textract Processing</strong> - Analyze documents with AWS Textract
+                </div>
+                <div class="workflow-step">
+                    <span class="step-number">4</span>
+                    <strong>Project Monitoring</strong> - Track project status and documents
+                </div>
+            </section>
+
+            <!-- API Endpoints Section -->
+            <section class="card">
+                <h2>🔗 Available API Endpoints</h2>
+                
+                <!-- Health Check -->
+                <div class="api-section">
+                    <span class="api-type management">SYSTEM</span>
+                    <h3>Health Check</h3>
+                    <p><strong>Purpose:</strong> Verify API service is running</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/health"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"healthy"</span>,
+  <span class="json-key">"version"</span>: <span class="json-string">"3.0.0"</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-string">"2025-12-14"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"🚀 Latest Blueprint API code is running!"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Create Blueprint Project -->
+                <div class="api-section">
+                    <span class="api-type blueprint">BDA BLUEPRINT</span>
+                    <h3>1. Create Blueprint Project</h3>
+                    <p><strong>Purpose:</strong> Create a new AWS Blueprint project with S3 storage and Textract adapters</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/create"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"project_name=demo-invoice-project"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"document_type=invoice"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"description=Demo Invoice Analysis Project"</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_arn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/demo-invoice-project"</span>,
+  <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-demo-invoice-project-1765759804"</span>,
+  <span class="json-key">"adapter_id"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"project_name"</span>: <span class="json-string">"demo-invoice-project"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-string">"invoice"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Blueprint project created in your AWS account"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- List Projects -->
+                <div class="api-section">
+                    <span class="api-type blueprint">BDA BLUEPRINT</span>
+                    <h3>2. List Blueprint Projects</h3>
+                    <p><strong>Purpose:</strong> List all Blueprint projects in your AWS account</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/projects"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"projects"</span>: [
+    {
+      <span class="json-key">"project_name"</span>: <span class="json-string">"demo-invoice-project"</span>,
+      <span class="json-key">"project_arn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/demo-invoice-project"</span>,
+      <span class="json-key">"document_type"</span>: <span class="json-string">"invoice"</span>,
+      <span class="json-key">"description"</span>: <span class="json-string">"Demo Invoice Analysis Project"</span>,
+      <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-demo-invoice-project-1765759804"</span>,
+      <span class="json-key">"adapter_id"</span>: <span class="json-null">null</span>,
+      <span class="json-key">"created_at"</span>: <span class="json-number">1765759805.550032</span>,
+      <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>,
+      <span class="json-key">"region"</span>: <span class="json-string">"us-east-1"</span>,
+      <span class="json-key">"processing_mode"</span>: <span class="json-string">"standard_textract"</span>
+    },
+    {
+      <span class="json-key">"project_name"</span>: <span class="json-string">"my-w2-project"</span>,
+      <span class="json-key">"project_arn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/my-w2-project"</span>,
+      <span class="json-key">"document_type"</span>: <span class="json-string">"w2"</span>,
+      <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-my-w2-project-1765758276"</span>,
+      <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>
+    }
+  ],
+  <span class="json-key">"count"</span>: <span class="json-number">2</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Found 2 Blueprint projects in your AWS account"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Upload Document -->
+                <div class="api-section">
+                    <span class="api-type blueprint">BDA BLUEPRINT</span>
+                    <h3>3. Upload Document to Project</h3>
+                    <p><strong>Purpose:</strong> Store documents in AWS S3 for Blueprint processing</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/project/demo-invoice-project/upload"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@sample-invoice.pdf;type=application/pdf'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_name"</span>: <span class="json-string">"demo-invoice-project"</span>,
+  <span class="json-key">"filename"</span>: <span class="json-string">"sample_w2.txt"</span>,
+  <span class="json-key">"s3_uri"</span>: <span class="json-string">"s3://bda-blueprint-demo-invoice-project-1765759804/documents/1765759864_sample_w2.txt"</span>,
+  <span class="json-key">"document_key"</span>: <span class="json-string">"documents/1765759864_sample_w2.txt"</span>,
+  <span class="json-key">"upload_timestamp"</span>: <span class="json-number">1765759864</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Document uploaded to Blueprint project in your AWS account"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Process W-2 -->
+                <div class="api-section">
+                    <span class="api-type textract">AWS TEXTRACT</span>
+                    <h3>4. Process W-2 Document</h3>
+                    <p><strong>Purpose:</strong> Analyze W-2 tax documents using AWS Textract with PDF conversion</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/process/w2"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@sample-w2.pdf;type=application/pdf'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-string">"w2"</span>,
+  <span class="json-key">"blueprint_result"</span>: {
+    <span class="json-key">"adapter_id"</span>: <span class="json-null">null</span>,
+    <span class="json-key">"document_type"</span>: <span class="json-string">"w2"</span>,
+    <span class="json-key">"extracted_data"</span>: {
+      <span class="json-key">"employee_info"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"John Doe"</span>,
+        <span class="json-key">"ssn"</span>: <span class="json-string">"123-45-6789"</span>,
+        <span class="json-key">"address"</span>: <span class="json-string">"123 Main St, Anytown, ST 12345"</span>
+      },
+      <span class="json-key">"employer_info"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"ABC Corporation"</span>,
+        <span class="json-key">"ein"</span>: <span class="json-string">"12-3456789"</span>,
+        <span class="json-key">"address"</span>: <span class="json-string">"456 Business Ave, Corporate City, ST 67890"</span>
+      },
+      <span class="json-key">"tax_info"</span>: {
+        <span class="json-key">"wages"</span>: <span class="json-string">"$75,000.00"</span>,
+        <span class="json-key">"federal_tax_withheld"</span>: <span class="json-string">"$12,500.00"</span>,
+        <span class="json-key">"social_security_wages"</span>: <span class="json-string">"$75,000.00"</span>,
+        <span class="json-key">"medicare_wages"</span>: <span class="json-string">"$75,000.00"</span>
+      },
+      <span class="json-key">"confidence_scores"</span>: {
+        <span class="json-key">"average"</span>: <span class="json-number">99.76</span>,
+        <span class="json-key">"minimum"</span>: <span class="json-number">95.2</span>,
+        <span class="json-key">"maximum"</span>: <span class="json-number">100.0</span>
+      }
+    },
+    <span class="json-key">"processing_metadata"</span>: {
+      <span class="json-key">"method"</span>: <span class="json-string">"standard_textract_fallback"</span>,
+      <span class="json-key">"adapter_used"</span>: <span class="json-boolean">false</span>,
+      <span class="json-key">"blocks_processed"</span>: <span class="json-number">281</span>,
+      <span class="json-key">"note"</span>: <span class="json-string">"Adapter unavailable, used standard Textract"</span>
+    }
+  },
+  <span class="json-key">"filename"</span>: <span class="json-string">"sample-w2.pdf"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Document processed using real AWS Blueprint API"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Process Bank Statement -->
+                <div class="api-section">
+                    <span class="api-type textract">AWS TEXTRACT</span>
+                    <h3>5. Process Bank Statement</h3>
+                    <p><strong>Purpose:</strong> Analyze bank statements using AWS Textract</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:8000/process/bank-statement"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@sample-statement.pdf;type=application/pdf'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-string">"bank_statement"</span>,
+  <span class="json-key">"blueprint_result"</span>: {
+    <span class="json-key">"adapter_id"</span>: <span class="json-null">null</span>,
+    <span class="json-key">"document_type"</span>: <span class="json-string">"bank_statement"</span>,
+    <span class="json-key">"extracted_data"</span>: {
+      <span class="json-key">"account_info"</span>: {
+        <span class="json-key">"account_number"</span>: <span class="json-string">"****1234"</span>,
+        <span class="json-key">"account_holder"</span>: <span class="json-string">"Jane Smith"</span>,
+        <span class="json-key">"bank_name"</span>: <span class="json-string">"First National Bank"</span>
+      },
+      <span class="json-key">"statement_period"</span>: {
+        <span class="json-key">"start_date"</span>: <span class="json-string">"2024-01-01"</span>,
+        <span class="json-key">"end_date"</span>: <span class="json-string">"2024-01-31"</span>
+      },
+      <span class="json-key">"balances"</span>: {
+        <span class="json-key">"beginning_balance"</span>: <span class="json-string">"$2,500.00"</span>,
+        <span class="json-key">"ending_balance"</span>: <span class="json-string">"$3,250.00"</span>
+      },
+      <span class="json-key">"transactions"</span>: [
+        {
+          <span class="json-key">"date"</span>: <span class="json-string">"2024-01-15"</span>,
+          <span class="json-key">"description"</span>: <span class="json-string">"Direct Deposit - Salary"</span>,
+          <span class="json-key">"amount"</span>: <span class="json-string">"$2,000.00"</span>,
+          <span class="json-key">"type"</span>: <span class="json-string">"credit"</span>
+        },
+        {
+          <span class="json-key">"date"</span>: <span class="json-string">"2024-01-20"</span>,
+          <span class="json-key">"description"</span>: <span class="json-string">"ATM Withdrawal"</span>,
+          <span class="json-key">"amount"</span>: <span class="json-string">"$100.00"</span>,
+          <span class="json-key">"type"</span>: <span class="json-string">"debit"</span>
+        }
+      ],
+      <span class="json-key">"confidence_scores"</span>: {
+        <span class="json-key">"average"</span>: <span class="json-number">98.5</span>,
+        <span class="json-key">"minimum"</span>: <span class="json-number">92.1</span>,
+        <span class="json-key">"maximum"</span>: <span class="json-number">100.0</span>
+      }
+    },
+    <span class="json-key">"processing_metadata"</span>: {
+      <span class="json-key">"method"</span>: <span class="json-string">"standard_textract_fallback"</span>,
+      <span class="json-key">"adapter_used"</span>: <span class="json-boolean">false</span>,
+      <span class="json-key">"blocks_processed"</span>: <span class="json-number">156</span>
+    }
+  },
+  <span class="json-key">"filename"</span>: <span class="json-string">"sample-statement.pdf"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Document processed using real AWS Blueprint API"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Project Status -->
+                <div class="api-section">
+                    <span class="api-type management">MONITORING</span>
+                    <h3>6. Get Project Status</h3>
+                    <p><strong>Purpose:</strong> Monitor Blueprint project status and document count</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:8000/blueprint/project/arn:aws:textract:us-east-1:blueprint:project/demo-invoice-project/status"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"project_status"</span>: {
+    <span class="json-key">"project_name"</span>: <span class="json-string">"demo-invoice-project"</span>,
+    <span class="json-key">"project_arn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/demo-invoice-project"</span>,
+    <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>,
+    <span class="json-key">"adapter_status"</span>: <span class="json-string">"UNKNOWN"</span>,
+    <span class="json-key">"s3_bucket"</span>: <span class="json-string">"bda-blueprint-demo-invoice-project-1765759804"</span>,
+    <span class="json-key">"document_count"</span>: <span class="json-number">3</span>,
+    <span class="json-key">"created_at"</span>: <span class="json-number">1765759805.550032</span>,
+    <span class="json-key">"last_updated"</span>: <span class="json-number">1765759921.913441</span>
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow Guide -->
+            <section class="card">
+                <h2>🔄 Complete Workflow Example</h2>
+                
+                <h3>Scenario: Setting up Invoice Processing</h3>
+                
+                <div class="workflow-step">
+                    <span class="step-number">1</span>
+                    <strong>Create Project:</strong> Use <code>/blueprint/create</code> to set up AWS resources
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">2</span>
+                    <strong>Upload Training Data:</strong> Use <code>/blueprint/project/{name}/upload</code> to store sample invoices
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">3</span>
+                    <strong>Process Documents:</strong> Use <code>/process/w2</code> or <code>/process/bank-statement</code> for analysis
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">4</span>
+                    <strong>Monitor Progress:</strong> Use <code>/blueprint/projects</code> and <code>/blueprint/project/{arn}/status</code>
+                </div>
+            </section>
+
+            <!-- API Types Explanation -->
+            <section class="card">
+                <h2>🏷️ API Categories</h2>
+                
+                <div class="api-section">
+                    <span class="api-type blueprint">BDA BLUEPRINT</span>
+                    <h3>Blueprint APIs</h3>
+                    <p>Manage AWS Blueprint projects, create S3 storage, and handle document uploads for training and archival.</p>
+                    <ul>
+                        <li><code>POST /blueprint/create</code> - Creates AWS resources</li>
+                        <li><code>GET /blueprint/projects</code> - Lists your projects</li>
+                        <li><code>POST /blueprint/project/{name}/upload</code> - Stores documents in S3</li>
+                    </ul>
+                </div>
+                
+                <div class="api-section">
+                    <span class="api-type textract">AWS TEXTRACT</span>
+                    <h3>Textract APIs</h3>
+                    <p>Real-time document analysis using AWS Textract with automatic PDF conversion and field extraction.</p>
+                    <ul>
+                        <li><code>POST /process/w2</code> - Analyzes W-2 tax documents</li>
+                        <li><code>POST /process/bank-statement</code> - Analyzes bank statements</li>
+                    </ul>
+                </div>
+                
+                <div class="api-section">
+                    <span class="api-type management">MONITORING</span>
+                    <h3>Management APIs</h3>
+                    <p>Monitor system health, project status, and document processing metrics.</p>
+                    <ul>
+                        <li><code>GET /health</code> - System health check</li>
+                        <li><code>GET /blueprint/project/{arn}/status</code> - Project monitoring</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // This will be populated with real API responses
+        console.log('BDA Blueprint API Examples loaded');
+    </script>
+</body>
+</html>

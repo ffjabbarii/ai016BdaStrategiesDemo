@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/Textract/Textract.csproj": {}
+  },
+  "projects": {
+    "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/Textract/Textract.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/Textract/Textract.csproj",
+        "projectName": "Textract",
+        "projectPath": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/Textract/Textract.csproj",
+        "packagesPath": "/Users/fjabbari/.nuget/packages/",
+        "outputPath": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/Textract/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/fjabbari/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AWSSDK.DynamoDBv2": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.S3": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.Textract": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "Amazon.Lambda.Core": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Amazon.Lambda.S3Events": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Amazon.Lambda.Serialization.SystemTextJson": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.36, 6.0.36]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.36, 6.0.36]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

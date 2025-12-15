@@ -1,0 +1,21 @@
+{
+  "region": "us-east-1",
+  "services": {
+    "textract": {
+      "endpoint": "https://textract.us-east-1.amazonaws.com"
+    },
+    "blueprint": {
+      "endpoint": "https://blueprint.us-east-1.amazonaws.com"
+    }
+  },
+  "document_types": {
+    "w2": {
+      "mime_types": ["image/jpeg", "image/png", "application/pdf"],
+      "max_size_mb": 10
+    },
+    "bank_statement": {
+      "mime_types": ["image/jpeg", "image/png", "application/pdf"],
+      "max_size_mb": 10
+    }
+  }
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# Blueprint and Textract API Examples</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .api-section {
+            background: #f8f9fa;
+            border-left: 4px solid #5c2d91;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .api-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .textract { background: #28a745; color: white; }
+        .blueprint { background: #5c2d91; color: white; }
+        .management { background: #6c757d; color: white; }
+        .csharp { background: #239120; color: white; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #333;
+            position: relative;
+        }
+        .code-block::before {
+            content: 'CURL → C# API';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #5c2d91;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        .response-block {
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+        .response-block::before {
+            content: 'C# JSON RESPONSE';
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: #238636;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 0 8px 0 8px;
+            font-weight: bold;
+        }
+        .workflow-step {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .step-number {
+            background: #5c2d91;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        .python-col { background: #e3f2fd; }
+        .csharp-col { background: #f3e5f5; }
+        /* JSON Syntax Highlighting */
+        .json-key { color: #79c0ff; }
+        .json-string { color: #a5d6ff; }
+        .json-number { color: #79c0ff; }
+        .json-boolean { color: #ff7b72; }
+        .json-null { color: #ff7b72; }
+        .bash-command { color: #79c0ff; font-weight: bold; }
+        .bash-flag { color: #a5d6ff; }
+        .bash-string { color: #a5d6ff; }
+        .bash-url { color: #f85149; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔷 C# Blueprint and Textract API Examples</h1>
+            <p>Complete C# API guide with real examples - Identical functionality to Python on different ports</p>
+        </header>
+
+        <div class="content">
+            <!-- Comparison Overview -->
+            <section class="card">
+                <h2>🔄 Python vs C# API Comparison</h2>
+                <p>Both implementations provide identical functionality with the same endpoints and responses:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="python-col">🐍 Python API</th>
+                            <th class="csharp-col">🔷 C# API</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Base URL</strong></td>
+                            <td class="python-col">http://localhost:8000</td>
+                            <td class="csharp-col">http://localhost:5000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Framework</strong></td>
+                            <td class="python-col">FastAPI + Uvicorn</td>
+                            <td class="csharp-col">ASP.NET Core</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AWS SDK</strong></td>
+                            <td class="python-col">boto3</td>
+                            <td class="csharp-col">AWS SDK for .NET</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endpoints</strong></td>
+                            <td class="python-col">Identical</td>
+                            <td class="csharp-col">Identical</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Response Format</strong></td>
+                            <td class="python-col">JSON</td>
+                            <td class="csharp-col">JSON (identical structure)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- C# API Endpoints -->
+            <section class="card">
+                <h2>🔗 C# API Endpoints (Port 5000)</h2>
+                
+                <!-- Health Check -->
+                <div class="api-section">
+                    <span class="api-type management">C# SYSTEM</span>
+                    <h3>Health Check</h3>
+                    <p><strong>Purpose:</strong> Verify C# API service is running</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:5000/health"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"healthy"</span>,
+  <span class="json-key">"version"</span>: <span class="json-string">"3.0.0"</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-string">"2025-12-14"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"🚀 Latest C# Blueprint API code is running!"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Create Blueprint Project -->
+                <div class="api-section">
+                    <span class="api-type blueprint">C# BDA BLUEPRINT</span>
+                    <h3>1. Create C# Blueprint Project</h3>
+                    <p><strong>Purpose:</strong> Create AWS Blueprint project using C# implementation</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:5000/blueprint/create"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"projectName=csharp-demo-project"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"documentType=invoice"</span> \
+  <span class="bash-flag">--data-urlencode</span> <span class="bash-string">"description=C# Demo Invoice Analysis Project"</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"projectArn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/csharp-demo-project"</span>,
+  <span class="json-key">"s3Bucket"</span>: <span class="json-string">"bda-blueprint-csharp-demo-project-1765760000"</span>,
+  <span class="json-key">"adapterId"</span>: <span class="json-null">null</span>,
+  <span class="json-key">"projectName"</span>: <span class="json-string">"csharp-demo-project"</span>,
+  <span class="json-key">"documentType"</span>: <span class="json-string">"invoice"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"C# Blueprint project created in your AWS account"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- Process W-2 -->
+                <div class="api-section">
+                    <span class="api-type textract">C# AWS TEXTRACT</span>
+                    <h3>2. Process W-2 Document (C#)</h3>
+                    <p><strong>Purpose:</strong> Analyze W-2 documents using C# AWS Textract implementation</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'POST'</span> \
+  <span class="bash-url">"http://localhost:5000/process/w2"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'Content-Type: multipart/form-data'</span> \
+  <span class="bash-flag">-F</span> <span class="bash-string">'file=@sample-w2.pdf;type=application/pdf'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"documentType"</span>: <span class="json-string">"w2"</span>,
+  <span class="json-key">"blueprintResult"</span>: {
+    <span class="json-key">"adapterId"</span>: <span class="json-null">null</span>,
+    <span class="json-key">"documentType"</span>: <span class="json-string">"w2"</span>,
+    <span class="json-key">"extractedData"</span>: {
+      <span class="json-key">"employeeInfo"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"John Doe"</span>,
+        <span class="json-key">"ssn"</span>: <span class="json-string">"123-45-6789"</span>
+      },
+      <span class="json-key">"employerInfo"</span>: {
+        <span class="json-key">"name"</span>: <span class="json-string">"ABC Corporation"</span>,
+        <span class="json-key">"ein"</span>: <span class="json-string">"12-3456789"</span>
+      },
+      <span class="json-key">"confidenceScores"</span>: {
+        <span class="json-key">"average"</span>: <span class="json-number">99.76</span>,
+        <span class="json-key">"minimum"</span>: <span class="json-number">95.2</span>,
+        <span class="json-key">"maximum"</span>: <span class="json-number">100.0</span>
+      }
+    },
+    <span class="json-key">"processingMetadata"</span>: {
+      <span class="json-key">"method"</span>: <span class="json-string">"csharp_textract_processing"</span>,
+      <span class="json-key">"adapterUsed"</span>: <span class="json-boolean">false</span>,
+      <span class="json-key">"blocksProcessed"</span>: <span class="json-number">281</span>
+    }
+  },
+  <span class="json-key">"filename"</span>: <span class="json-string">"sample-w2.pdf"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Document processed using real AWS Blueprint API (C#)"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- List Projects -->
+                <div class="api-section">
+                    <span class="api-type blueprint">C# BDA BLUEPRINT</span>
+                    <h3>3. List C# Blueprint Projects</h3>
+                    <p><strong>Purpose:</strong> List all Blueprint projects created by C# API</p>
+                    
+                    <h4>Request:</h4>
+                    <div class="code-block">
+<span class="bash-command">curl</span> <span class="bash-flag">-X</span> <span class="bash-string">'GET'</span> \
+  <span class="bash-url">"http://localhost:5000/blueprint/projects"</span> \
+  <span class="bash-flag">-H</span> <span class="bash-string">'accept: application/json'</span>
+                    </div>
+                    
+                    <h4>Response:</h4>
+                    <div class="response-block">
+<pre><code class="language-json">{
+  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,
+  <span class="json-key">"projects"</span>: [
+    {
+      <span class="json-key">"projectName"</span>: <span class="json-string">"csharp-demo-project"</span>,
+      <span class="json-key">"projectArn"</span>: <span class="json-string">"arn:aws:textract:us-east-1:blueprint:project/csharp-demo-project"</span>,
+      <span class="json-key">"documentType"</span>: <span class="json-string">"invoice"</span>,
+      <span class="json-key">"s3Bucket"</span>: <span class="json-string">"bda-blueprint-csharp-demo-project-1765760000"</span>,
+      <span class="json-key">"status"</span>: <span class="json-string">"ACTIVE"</span>,
+      <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+    }
+  ],
+  <span class="json-key">"count"</span>: <span class="json-number">1</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Found 1 C# Blueprint projects in your AWS account"</span>,
+  <span class="json-key">"language"</span>: <span class="json-string">"C#"</span>
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dual Language Workflow -->
+            <section class="card">
+                <h2>🔄 Dual-Language Testing Workflow</h2>
+                
+                <h3>Running Both APIs Simultaneously</h3>
+                
+                <div class="workflow-step">
+                    <span class="step-number">1</span>
+                    <strong>Start Python API:</strong> <code>python Startup/startup.py</code> → Start python_blueprint_api (Port 8000)
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">2</span>
+                    <strong>Start C# API:</strong> In GUI Manager → Start csharp_blueprint_api (Port 5000)
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">3</span>
+                    <strong>Test Both:</strong> Use identical curl commands on different ports
+                </div>
+                
+                <div class="workflow-step">
+                    <span class="step-number">4</span>
+                    <strong>Compare Results:</strong> Both should return identical functionality with language markers
+                </div>
+
+                <h3>Quick Comparison Test</h3>
+                <div class="code-block">
+<span class="bash-command"># Test Python API</span>
+<span class="bash-command">curl</span> <span class="bash-url">http://localhost:8000/health</span>
+
+<span class="bash-command"># Test C# API</span>
+<span class="bash-command">curl</span> <span class="bash-url">http://localhost:5000/health</span>
+                </div>
+            </section>
+
+            <!-- Implementation Notes -->
+            <section class="card">
+                <h2>🔧 Implementation Notes</h2>
+                
+                <h3>Key Differences</h3>
+                <ul>
+                    <li><strong>Language Markers:</strong> All C# responses include <code>"language": "C#"</code></li>
+                    <li><strong>Logging:</strong> C# uses ILogger, Python uses print statements</li>
+                    <li><strong>Error Handling:</strong> C# uses structured exception handling</li>
+                    <li><strong>AWS SDK:</strong> Different SDKs but identical AWS service calls</li>
+                </ul>
+
+                <h3>Identical Features</h3>
+                <ul>
+                    <li>✅ All API endpoints and parameters</li>
+                    <li>✅ AWS Textract integration</li>
+                    <li>✅ Blueprint project management</li>
+                    <li>✅ Document upload and processing</li>
+                    <li>✅ Error responses and status codes</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        console.log('C# Blueprint API Examples loaded');
+    </script>
+</body>
+</html>

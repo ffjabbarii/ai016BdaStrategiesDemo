@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Overview - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-info-circle"></i>
+                Project Overview
+            </h1>
+            <p class="subtitle">Architecture and Implementation Strategy</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <h2>Business Document Analysis (BDA) Strategies</h2>
+                <p>This project demonstrates three different approaches to processing business documents using AWS services, implemented in both Python and C#.</p>
+
+                <h3>Architecture Overview</h3>
+                <div class="code-block">
+Document Upload → AWS Services → Processing Engine → Structured Data Output
+
+Three Processing Patterns:
+1. Blueprint API: Template-based extraction
+2. Textract Direct: Raw OCR with custom parsing  
+3. AnalyzeDocument: Enhanced ML-powered analysis
+                </div>
+
+                <h3>Supported Document Types</h3>
+                <ul>
+                    <li><strong>W-2 Forms</strong>: Tax documents with structured fields</li>
+                    <li><strong>Bank Statements</strong>: Financial documents with transaction tables</li>
+                </ul>
+
+                <h3>Implementation Languages</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                    <div>
+                        <h4><i class="fab fa-python"></i> Python Implementation</h4>
+                        <ul>
+                            <li>FastAPI for REST APIs</li>
+                            <li>boto3 for AWS integration</li>
+                            <li>OpenCV for image processing</li>
+                            <li>Lambda deployment</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4><i class="fas fa-code"></i> C# Implementation</h4>
+                        <ul>
+                            <li>ASP.NET Core for REST APIs</li>
+                            <li>AWS SDK for .NET</li>
+                            <li>ImageSharp for image processing</li>
+                            <li>Lambda and ECS deployment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Project Structure</h3>
+                <div class="code-block">
+ai016BdaStrategiesDemo/
+├── python/                    # Python implementations
+│   ├── BlueprintAPI/         # FastAPI + Blueprint API
+│   ├── Textract/             # Lambda + Direct Textract
+│   └── AnalyzeDocument/      # Enhanced processing
+├── csharp/                   # C# implementations  
+│   ├── BlueprintAPI/         # ASP.NET Core + Blueprint API
+│   ├── Textract/             # Lambda + Direct Textract
+│   └── AnalyzeDocument/      # Enhanced processing
+├── shared/                   # Common resources
+│   ├── documents/            # Sample documents
+│   ├── config/              # AWS configuration
+│   └── utils/               # Shared utilities
+└── Docs/                    # Documentation portal
+                </div>
+
+                <h3>Development Workflow</h3>
+                <p>This project is designed for development with VS Code and Visual Studio:</p>
+                <ol>
+                    <li>Clone the repository</li>
+                    <li>Open in your preferred IDE</li>
+                    <li>Build and test locally</li>
+                    <li>Deploy to AWS services</li>
+                    <li>Monitor and iterate</li>
+                </ol>
+
+                <div style="margin: 2rem 0;">
+                    <a href="vscode://file/README.md" class="vscode-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open Project in VS Code
+                    </a>
+                    <a href="#" onclick="openInVisualStudio('ai016BdaStrategiesDemo.sln')" class="vs-link" style="margin-left: 1rem;">
+                        <i class="fas fa-external-link-alt"></i>
+                        Open in Visual Studio
+                    </a>
+                </div>
+
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Multi-Pattern Comparison</strong>: Compare different AWS service approaches</li>
+                    <li><strong>Language Flexibility</strong>: Choose Python or C# based on team expertise</li>
+                    <li><strong>Scalable Architecture</strong>: From serverless to containerized deployments</li>
+                    <li><strong>Production Ready</strong>: Includes error handling, logging, and monitoring</li>
+                </ul>
+
+                <div style="margin-top: 3rem; text-align: center;">
+                    <a href="index.html" class="vscode-link">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Documentation Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

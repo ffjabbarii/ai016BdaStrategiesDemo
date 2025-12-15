@@ -1,0 +1,43 @@
+{
+  "document_type": "bank_statement",
+  "sample_data": {
+    "account_info": {
+      "account_number": "1234567890",
+      "routing_number": "021000021",
+      "account_holder": "John Doe",
+      "bank_name": "Sample Bank"
+    },
+    "statement_period": {
+      "start_date": "2024-01-01",
+      "end_date": "2024-01-31"
+    },
+    "balances": {
+      "beginning_balance": "5000.00",
+      "ending_balance": "4750.00"
+    },
+    "transactions": [
+      {
+        "date": "2024-01-02",
+        "description": "Direct Deposit - Salary",
+        "amount": "3000.00",
+        "type": "credit",
+        "balance": "8000.00"
+      },
+      {
+        "date": "2024-01-05",
+        "description": "ATM Withdrawal",
+        "amount": "-200.00",
+        "type": "debit",
+        "balance": "7800.00"
+      },
+      {
+        "date": "2024-01-10",
+        "description": "Online Purchase - Amazon",
+        "amount": "-150.50",
+        "type": "debit",
+        "balance": "7649.50"
+      }
+    ]
+  },
+  "description": "Sample bank statement data structure for testing BDA implementations"
+}
