@@ -84,8 +84,8 @@ namespace BlueprintAPI.Models
         public double Minimum { get; set; }
         public double Maximum { get; set; }
     }
-} 
-   public class BlueprintProjectResult
+
+    public class BlueprintProjectResult
     {
         public string ProjectArn { get; set; } = string.Empty;
         public string S3Bucket { get; set; } = string.Empty;
@@ -136,3 +136,4 @@ namespace BlueprintAPI.Models
         public string Message { get; set; } = string.Empty;
         public DocumentProcessingResult? ProcessingResult { get; set; }
     }
+}

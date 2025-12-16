@@ -1,0 +1,8 @@
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.csproj.AssemblyReference.cache
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.AssemblyInfoInputs.cache
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.AssemblyInfo.cs
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.csproj.CoreCompileInputs.cache
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.MvcApplicationPartsAssemblyInfo.cs
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.MvcApplicationPartsAssemblyInfo.cache
+/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/obj/Release/net7.0/BlueprintAPI.sourcelink.json

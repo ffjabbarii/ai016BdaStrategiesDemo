@@ -9,5 +9,6 @@ namespace BlueprintAPI.Services
         Task<List<BlueprintProject>> ListBlueprintProjectsAsync();
         Task<BlueprintProjectStatus> GetProjectStatusAsync(string projectArn);
         Task<DocumentUploadResult> UploadDocumentToProjectAsync(string projectName, byte[] documentBytes, string filename);
+        Task<string> CreateAdapterAsync(string adapterName, string documentType, List<string> featureTypes);
     }
 }

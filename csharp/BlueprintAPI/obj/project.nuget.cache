@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "KpEGBx/erC4=",
+  "dgSpecHash": "lAXhyDePBGs=",
   "success": true,
   "projectFilePath": "/Users/fjabbari/REPO_AI/VR/ai016BdaStrategiesDemo/csharp/BlueprintAPI/BlueprintAPI.csproj",
   "expectedPackageFiles": [
@@ -24,9 +24,9 @@
     "/Users/fjabbari/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "/Users/fjabbari/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "/Users/fjabbari/.nuget/packages/system.runtime.compilerservices.unsafe/4.4.0/system.runtime.compilerservices.unsafe.4.4.0.nupkg.sha512",
-    "/Users/fjabbari/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
-    "/Users/fjabbari/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
-    "/Users/fjabbari/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.20/microsoft.netcore.app.host.osx-arm64.7.0.20.nupkg.sha512"
+    "/Users/fjabbari/.nuget/packages/microsoft.netcore.app.ref/8.0.14/microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
+    "/Users/fjabbari/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.14/microsoft.aspnetcore.app.ref.8.0.14.nupkg.sha512",
+    "/Users/fjabbari/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.14/microsoft.netcore.app.host.osx-arm64.8.0.14.nupkg.sha512"
   ],
   "logs": [
     {
@@ -36,7 +36,7 @@
       "message": "BlueprintAPI depends on AWSSDK.BedrockDataAutomation (>= 3.7.300) but AWSSDK.BedrockDataAutomation 3.7.300 was not found. AWSSDK.BedrockDataAutomation 3.7.400 was resolved instead.",
       "libraryId": "AWSSDK.BedrockDataAutomation",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     },
     {
@@ -46,7 +46,7 @@
       "message": "BlueprintAPI depends on AWSSDK.BedrockDataAutomationRuntime (>= 3.7.300) but AWSSDK.BedrockDataAutomationRuntime 3.7.300 was not found. AWSSDK.BedrockDataAutomationRuntime 3.7.400 was resolved instead.",
       "libraryId": "AWSSDK.BedrockDataAutomationRuntime",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     }
   ]

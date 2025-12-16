@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# BDA W-2.pdf Document in Blueprint - Complete Processing Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .processing-flow {
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            color: #ffffff;
+        }
+        .field-extraction {
+            background: #000000;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        .field-name {
+            color: #00ffff;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+        .field-value {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            background: #333333;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 8px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .bucket-structure {
+            background: #1a1a1a;
+            border: 2px solid #ffff00;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+        .command-box {
+            background: #000000;
+            border: 2px solid #ff00ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+        }
+        .extraction-step {
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+        .w2-field-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .w2-field-card {
+            background: #1a1a1a;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            padding: 15px;
+            color: #ffffff;
+        }
+        .integration-flow {
+            background: #1a1a1a;
+            border: 2px solid #ff6600;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+        .csharp-specific {
+            background: #1a1a1a;
+            border: 2px solid #9b59b6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        
+        /* Fix all headings and bold text */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+        }
+        
+        h3 {
+            color: #00ffff !important;
+            font-weight: bold !important;
+            font-size: 20px !important;
+        }
+        
+        strong {
+            color: #ffff00 !important;
+            font-weight: bold !important;
+        }
+        
+        .extraction-step h3 {
+            color: #00ff00 !important;
+        }
+        
+        .processing-flow h3 {
+            color: #00ffff !important;
+        }
+        
+        .integration-flow h3 {
+            color: #ff6600 !important;
+        }
+        
+        .bucket-structure h3 {
+            color: #ffff00 !important;
+        }
+        
+        .csharp-specific h3 {
+            color: #9b59b6 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔷 C# BDA W-2.pdf Document in Blueprint</h1>
+            <p class="subtitle">Complete C# .NET Processing Analysis - Field Extraction, Storage, and Integration</p>
+        </header>
+
+        <main class="main-content">
+            <!-- C# Implementation Overview -->
+            <section class="card">
+                <h2>🎯 C# BDA Implementation Overview</h2>
+                
+                <div class="csharp-specific">
+                    <h3>🔷 C# .NET BDA API Features</h3>
+                    <ul>
+                        <li><strong>Framework:</strong> ASP.NET Core 8.0</li>
+                        <li><strong>Port:</strong> 5000 (different from Python port 8000)</li>
+                        <li><strong>AWS SDK:</strong> AWSSDK.BedrockDataAutomation</li>
+                        <li><strong>Project Integration:</strong> Uses same BDA project as Python</li>
+                        <li><strong>Processing:</strong> Amazon Bedrock Data Automation</li>
+                    </ul>
+                </div>
+
+                <div class="processing-flow">
+                    <h3>📊 C# Processing Summary</h3>
+                    <ul>
+                        <li><strong>Document:</strong> w-2.pdf (11 pages)</li>
+                        <li><strong>Project:</strong> test-w2-fixed-1765841521</li>
+                        <li><strong>Project ID:</strong> a07a2d75b205</li>
+                        <li><strong>C# API Port:</strong> 5000</li>
+                        <li><strong>Processing Status:</strong> ✅ SUCCESS</li>
+                        <li><strong>Storage Bucket:</strong> bda-project-storage-a07a2d75b205</li>
+                        <li><strong>Language:</strong> C# .NET</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- C# API Endpoints -->
+            <section class="card">
+                <h2>🌐 C# API Endpoints</h2>
+                
+                <div class="command-box">
+                    <h3>📋 Available C# Endpoints</h3>
+                    <pre class="code-block">
+# Health Check
+GET http://localhost:5000/health
+
+# List BDA Projects
+GET http://localhost:5000/blueprint/projects
+
+# Upload Document to BDA Project
+POST http://localhost:5000/blueprint/project/test-w2-fixed-1765841521/upload
+
+# Direct W-2 Processing
+POST http://localhost:5000/process/w2
+
+# Create New BDA Project
+POST http://localhost:5000/blueprint/create?projectName=my-project
+
+# Get Project Status
+GET http://localhost:5000/blueprint/project/{projectArn}/status
+                    </pre>
+                </div>
+
+                <div class="csharp-specific">
+                    <h3>🔷 C# vs Python API Differences</h3>
+                    <ul>
+                        <li><strong>Port:</strong> C# uses 5000, Python uses 8000</li>
+                        <li><strong>Framework:</strong> C# uses ASP.NET Core, Python uses FastAPI</li>
+                        <li><strong>AWS SDK:</strong> C# uses AWSSDK.*, Python uses boto3</li>
+                        <li><strong>Project Data:</strong> Both use the same BDA project</li>
+                        <li><strong>Functionality:</strong> Identical processing capabilities</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- C# Code Structure -->
+            <section class="card">
+                <h2>🏗️ C# Code Architecture</h2>
+                
+                <div class="bucket-structure">
+                    <h3>📁 C# Project Structure</h3>
+                    <pre class="code-block">
+csharp/BlueprintAPI/
+├── Controllers/
+│   └── DocumentController.cs          ← API endpoints
+├── Services/
+│   ├── IBlueprintProcessor.cs         ← Interface
+│   └── BlueprintProcessor.cs          ← BDA processing logic
+├── Models/
+│   └── DocumentModels.cs              ← Data models
+├── Program.cs                         ← Startup configuration
+└── BlueprintAPI.csproj               ← Project dependencies
+                    </pre>
+                </div>
+
+                <div class="csharp-specific">
+                    <h3>🔷 Key C# Classes</h3>
+                    <ul>
+                        <li><strong>DocumentController:</strong> REST API endpoints</li>
+                        <li><strong>BlueprintProcessor:</strong> BDA integration service</li>
+                        <li><strong>DocumentModels:</strong> W-2 and processing result models</li>
+                        <li><strong>IBlueprintProcessor:</strong> Service interface</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- C# Field Extraction -->
+            <section class="card">
+                <h2>📋 C# W-2 Field Extraction</h2>
+                
+                <p style="color: #ffffff;">C# implementation extracts the same W-2 fields as Python using identical BDA project:</p>
+
+                <div class="w2-field-grid">
+                    <div class="w2-field-card">
+                        <div class="field-name">Box a: Employee's Social Security Number</div>
+                        <div class="field-value">Extracted via C# AWS SDK</div>
+                        <p style="color: #ffffff;"><strong style="color: #00ff00;">C# Method:</strong> ExtractW2FieldsFromAdapterResponse()</p>
+                        <p style="color: #ffffff;"><strong style="color: #00ffff;">SDK:</strong> AWSSDK.Textract</p>
+                    </div>
+
+                    <div class="w2-field-card">
+                        <div class="field-name">Box 1: Wages, Tips, Other Compensation</div>
+                        <div class="field-value">C# decimal parsing</div>
+                        <p style="color: #ffffff;"><strong style="color: #00ff00;">C# Type:</strong> decimal?</p>
+                        <p style="color: #ffffff;"><strong style="color: #00ffff;">Processing:</strong> TaxInfo.Wages</p>
+                    </div>
+
+                    <div class="w2-field-card">
+                        <div class="field-name">Box 2: Federal Income Tax Withheld</div>
+                        <div class="field-value">C# tax calculation</div>
+                        <p style="color: #ffffff;"><strong style="color: #00ff00;">C# Type:</strong> decimal?</p>
+                        <p style="color: #ffffff;"><strong style="color: #00ffff;">Processing:</strong> TaxInfo.FederalTaxWithheld</p>
+                    </div>
+
+                    <div class="w2-field-card">
+                        <div class="field-name">Boxes 3-6: Social Security & Medicare</div>
+                        <div class="field-value">C# FICA processing</div>
+                        <p style="color: #ffffff;"><strong style="color: #00ff00;">C# Types:</strong> SocialSecurityWages, MedicareWages</p>
+                        <p style="color: #ffffff;"><strong style="color: #00ffff;">Model:</strong> TaxInfo class</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- C# Commands and Usage -->
+            <section class="card">
+                <h2>⚡ C# API Commands and Usage</h2>
+                
+                <h3 style="color: #00ffff !important;">🚀 Start C# API</h3>
+                <div class="command-box">
+                    <pre class="code-block">
+# Start C# API with test script
+python3 start_csharp_api.py
+
+# Or start manually
+cd csharp/BlueprintAPI
+dotnet run
+
+# API will be available at http://localhost:5000
+                    </pre>
+                </div>
+
+                <h3 style="color: #00ffff !important;">🧪 Test C# API</h3>
+                <div class="command-box">
+                    <pre class="code-block">
+# Run C# API tests
+python3 test_csharp_bda_api.py
+
+# Test health check
+curl http://localhost:5000/health
+
+# Test project list
+curl http://localhost:5000/blueprint/projects
+
+# Upload W-2 document
+curl -X POST http://localhost:5000/blueprint/project/test-w2-fixed-1765841521/upload \
+  -F "file=@w-2.pdf"
+                    </pre>
+                </div>
+
+                <h3 style="color: #00ffff !important;">📤 C# Document Upload Example</h3>
+                <div class="command-box">
+                    <pre class="code-block">
+# C# API call using requests
+import requests
+
+files = {'file': ('w-2.pdf', open('w-2.pdf', 'rb'), 'application/pdf')}
+response = requests.post(
+    'http://localhost:5000/blueprint/project/test-w2-fixed-1765841521/upload',
+    files=files
+)
+
+result = response.json()
+print(f"C# Processing Result: {result}")
+                    </pre>
+                </div>
+            </section>
+
+            <!-- C# Integration Patterns -->
+            <section class="card">
+                <h2>🔗 C# Integration Patterns</h2>
+                
+                <div class="integration-flow">
+                    <h3>🔷 C# Enterprise Integration</h3>
+                    <ol>
+                        <li><strong>ASP.NET Core API:</strong> RESTful endpoints</li>
+                        <li><strong>Dependency Injection:</strong> AWS services registration</li>
+                        <li><strong>Async/Await:</strong> Non-blocking processing</li>
+                        <li><strong>Error Handling:</strong> Try-catch with logging</li>
+                        <li><strong>Model Binding:</strong> Strongly-typed responses</li>
+                    </ol>
+                </div>
+
+                <h3 style="color: #00ffff !important;">🔷 C# Service Registration</h3>
+                <div class="command-box">
+                    <pre class="code-block">
+// Program.cs - Service registration
+builder.Services.AddAWSService&lt;IAmazonTextract&gt;();
+builder.Services.AddAWSService&lt;IAmazonBedrockDataAutomation&gt;();
+builder.Services.AddAWSService&lt;IAmazonBedrockDataAutomationRuntime&gt;();
+builder.Services.AddAWSService&lt;IAmazonS3&gt;();
+builder.Services.AddScoped&lt;IBlueprintProcessor, BlueprintProcessor&gt;();
+                    </pre>
+                </div>
+
+                <h3 style="color: #00ffff !important;">🔷 C# Controller Example</h3>
+                <div class="command-box">
+                    <pre class="code-block">
+[HttpPost("blueprint/project/{projectName}/upload")]
+public async Task&lt;IActionResult&gt; UploadDocumentToProject(
+    string projectName, 
+    [FromForm] IFormFile file)
+{
+    var result = await _blueprintProcessor
+        .UploadDocumentToProjectAsync(projectName, fileBytes, file.FileName);
+    
+    return Ok(new {
+        Status = "success",
+        ProjectName = projectName,
+        Language = "C#",
+        Result = result
+    });
+}
+                    </pre>
+                </div>
+            </section>
+
+            <!-- C# vs Python Comparison -->
+            <section class="card">
+                <h2>⚖️ C# vs Python Implementation</h2>
+                
+                <div class="csharp-specific">
+                    <h3>🔷 Implementation Comparison</h3>
+                    <table style="width: 100%; color: #ffffff; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #666;">
+                            <th style="padding: 10px; text-align: left; color: #00ffff;">Feature</th>
+                            <th style="padding: 10px; text-align: left; color: #00ff00;">C# Implementation</th>
+                            <th style="padding: 10px; text-align: left; color: #ffff00;">Python Implementation</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 8px;"><strong>Framework</strong></td>
+                            <td style="padding: 8px;">ASP.NET Core 8.0</td>
+                            <td style="padding: 8px;">FastAPI</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 8px;"><strong>Port</strong></td>
+                            <td style="padding: 8px;">5000</td>
+                            <td style="padding: 8px;">8000</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 8px;"><strong>AWS SDK</strong></td>
+                            <td style="padding: 8px;">AWSSDK.BedrockDataAutomation</td>
+                            <td style="padding: 8px;">boto3</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 8px;"><strong>Type Safety</strong></td>
+                            <td style="padding: 8px;">Strongly typed models</td>
+                            <td style="padding: 8px;">Dynamic dictionaries</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 8px;"><strong>BDA Project</strong></td>
+                            <td style="padding: 8px;">test-w2-fixed-1765841521</td>
+                            <td style="padding: 8px;">test-w2-fixed-1765841521</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;"><strong>Processing</strong></td>
+                            <td style="padding: 8px;">Identical BDA results</td>
+                            <td style="padding: 8px;">Identical BDA results</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="card">
+                <h2>🎉 C# Implementation Summary</h2>
+                
+                <div class="processing-flow">
+                    <h3>✅ C# BDA Implementation Status</h3>
+                    <ul>
+                        <li><strong>✅ API Running:</strong> C# API on port 5000</li>
+                        <li><strong>✅ BDA Integration:</strong> Uses same project as Python</li>
+                        <li><strong>✅ Document Processing:</strong> W-2 extraction working</li>
+                        <li><strong>✅ Type Safety:</strong> Strongly-typed C# models</li>
+                        <li><strong>✅ Enterprise Ready:</strong> ASP.NET Core architecture</li>
+                        <li><strong>✅ AWS SDK:</strong> Latest BDA SDK integration</li>
+                    </ul>
+                    
+                    <p style="color: #ffffff;"><strong>Bottom Line:</strong> C# implementation provides identical BDA functionality to Python with enterprise-grade type safety and ASP.NET Core architecture.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>📚 Part of the BDA Blueprint Documentation Suite</p>
+            <p><a href="index.html">← Back to Documentation Home</a></p>
+        </footer>
+    </div>
+</body>
+</html>

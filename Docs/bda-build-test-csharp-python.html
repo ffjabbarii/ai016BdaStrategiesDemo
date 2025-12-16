@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Build and Test with C# and Python - Complete System Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .build-step {
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+        .command-sequence {
+            background: #000000;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+        }
+        .test-result {
+            background: #1a1a1a;
+            border: 2px solid #ffff00;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        .project-info {
+            background: #1a1a1a;
+            border: 2px solid #ff6600;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            color: #ffffff;
+        }
+        .api-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .python-section {
+            background: #1a1a1a;
+            border: 2px solid #3776ab;
+            border-radius: 8px;
+            padding: 15px;
+            color: #ffffff;
+        }
+        .csharp-section {
+            background: #1a1a1a;
+            border: 2px solid #512bd4;
+            border-radius: 8px;
+            padding: 15px;
+            color: #ffffff;
+        }
+        .workflow-step {
+            background: #2a2a2a;
+            border-left: 4px solid #00ff00;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+            color: #ffffff;
+        }
+        
+        /* Fix all headings and bold text */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+        }
+        
+        h3 {
+            color: #00ffff !important;
+            font-weight: bold !important;
+            font-size: 20px !important;
+        }
+        
+        strong {
+            color: #ffff00 !important;
+            font-weight: bold !important;
+        }
+        
+        .build-step h3 {
+            color: #00ff00 !important;
+        }
+        
+        .project-info h3 {
+            color: #ff6600 !important;
+        }
+        
+        .python-section h3 {
+            color: #3776ab !important;
+        }
+        
+        .csharp-section h3 {
+            color: #512bd4 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏗️ BDA Build and Test with C# and Python</h1>
+            <p class="subtitle">Complete System Build, Run, and Test Guide with Real Examples</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Project Information -->
+            <section class="card">
+                <h2>🎯 Your BDA Project Configuration</h2>
+                
+                <div class="project-info">
+                    <h3>📊 Project Details</h3>
+                    <ul>
+                        <li><strong>Project Name:</strong> test-w2-fixed-1765841521</li>
+                        <li><strong>Project ID:</strong> a07a2d75b205</li>
+                        <li><strong>Project ARN:</strong> arn:aws:bedrock:us-east-1:624706593351:data-automation-project/a07a2d75b205</li>
+                        <li><strong>S3 Bucket:</strong> bda-project-storage-a07a2d75b205</li>
+                        <li><strong>AWS Region:</strong> us-east-1</li>
+                        <li><strong>Document Type:</strong> W-2 Tax Forms</li>
+                    </ul>
+                </div>
+
+                <div class="project-info">
+                    <h3>🔧 System Architecture</h3>
+                    <ul>
+                        <li><strong>Python API:</strong> FastAPI on port 8000</li>
+                        <li><strong>C# API:</strong> ASP.NET Core on port 5000</li>
+                        <li><strong>AWS Services:</strong> Bedrock Data Automation, S3, Textract</li>
+                        <li><strong>Processing:</strong> Both APIs use same BDA project</li>
+                        <li><strong>Storage:</strong> Shared S3 bucket for all results</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Prerequisites -->
+            <section class="card">
+                <h2>📋 Prerequisites and Setup</h2>
+                
+                <div class="build-step">
+                    <h3>🔧 Required Software</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Check Python 3.8+
+python3 --version
+
+# Check .NET 8.0 SDK
+dotnet --version
+
+# Check AWS CLI
+aws --version
+
+# Check required Python packages
+pip list | grep -E "(fastapi|uvicorn|boto3|requests)"
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="build-step">
+                    <h3>🔑 AWS Configuration</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Configure AWS credentials
+aws configure
+
+# Test AWS access
+aws sts get-caller-identity
+
+# Verify BDA project access
+aws s3 ls s3://bda-project-storage-a07a2d75b205/
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="build-step">
+                    <h3>📄 Prepare Test W-2 File</h3>
+                    <p style="color: #ffffff;">Place your <strong>w-2.pdf</strong> file in the project root directory for testing.</p>
+                </div>
+            </section>
+
+            <!-- Build Process -->
+            <section class="card">
+                <h2>🏗️ Build Process</h2>
+                
+                <div class="api-comparison">
+                    <div class="python-section">
+                        <h3>🐍 Python Build</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Navigate to Python directory
+cd python/BlueprintAPI
+
+# Install dependencies
+pip install fastapi uvicorn boto3 requests python-multipart
+
+# Verify Python files
+ls -la src/
+# Should see: api.py, blueprint_processor.py
+
+# Test import
+python3 -c "from src.api import app; print('✅ Python build OK')"
+                            </pre>
+                        </div>
+                    </div>
+
+                    <div class="csharp-section">
+                        <h3>🔷 C# Build</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Navigate to C# directory
+cd csharp/BlueprintAPI
+
+# Restore packages
+dotnet restore
+
+# Build project
+dotnet build --configuration Release
+
+# Verify build
+ls -la bin/Release/net8.0/
+# Should see: BlueprintAPI.dll
+
+# Test build
+dotnet build --verbosity minimal
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Running the System -->
+            <section class="card">
+                <h2>🚀 Running the System</h2>
+                
+                <div class="build-step">
+                    <h3>⚡ Option 1: Start Both APIs Simultaneously</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Start both APIs with management script
+python3 start_both_apis.py
+
+# Expected output:
+# 🐍 Starting Python API...
+#    Process ID: 12345
+#    Port: 8000
+# ✅ Python API ready: BDA Blueprint API v4.0 - RUNNING
+# 
+# 🔷 Starting C# API...
+#    Process ID: 12346
+#    Port: 5000
+# ✅ C# API ready: C# Blueprint API v3.0 - UPDATED CODE RUNNING
+# 
+# 🎉 Both APIs started successfully!
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="api-comparison">
+                    <div class="python-section">
+                        <h3>🐍 Start Python API Only</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Method 1: Direct uvicorn
+cd python/BlueprintAPI
+python3 -m uvicorn src.api:app --host 0.0.0.0 --port 8000 --reload
+
+# Method 2: Using startup script
+python3 start_api_and_test.py
+
+# Verify Python API
+curl http://localhost:8000/health
+                            </pre>
+                        </div>
+                    </div>
+
+                    <div class="csharp-section">
+                        <h3>🔷 Start C# API Only</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Method 1: Direct dotnet run
+cd csharp/BlueprintAPI
+dotnet run --configuration Release
+
+# Method 2: Using startup script
+python3 start_csharp_api.py
+
+# Verify C# API
+curl http://localhost:5000/health
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Process -->
+            <section class="card">
+                <h2>🧪 Testing Process</h2>
+                
+                <div class="build-step">
+                    <h3>⚡ Quick Development Test</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Run quick test of both APIs
+python3 quick_dual_api_test.py
+
+# Expected output:
+# 🚀 QUICK DUAL API TEST
+# 🐍 Python API (8000): 🟢 Running
+# 🔷 C# API (5000): 🟢 Running
+# 
+# ✅ Python Health (45.2ms): BDA Blueprint API v4.0 - RUNNING
+# ✅ Python Projects: 1 found
+# ✅ Python Upload: success
+# 
+# ✅ C# Health (52.1ms): C# Blueprint API v3.0 - UPDATED CODE RUNNING
+# ✅ C# Projects: 1 found
+# ✅ C# Upload: success
+# 
+# 🎉 ALL APIS FULLY FUNCTIONAL!
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="build-step">
+                    <h3>🏭 Production Readiness Test</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Run comprehensive production test
+python3 production_readiness_test.py
+
+# This will test:
+# - Build environments
+# - API startup
+# - Health checks
+# - All endpoints
+# - Performance metrics
+# - Cross-API compatibility
+# - Generate production report
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Real W-2 Processing Examples -->
+            <section class="card">
+                <h2>📄 Real W-2 Processing Examples</h2>
+                
+                <div class="workflow-step">
+                    <h3>📤 Upload W-2 to Your BDA Project</h3>
+                    <p style="color: #ffffff;">Using your actual project: <strong>test-w2-fixed-1765841521</strong></p>
+                </div>
+
+                <div class="api-comparison">
+                    <div class="python-section">
+                        <h3>🐍 Python API W-2 Upload</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Upload W-2 via Python API
+curl -X POST http://localhost:8000/blueprint/project/test-w2-fixed-1765841521/upload \
+  -F "file=@w-2.pdf"
+
+# Expected response:
+{
+  "status": "success",
+  "project_name": "test-w2-fixed-1765841521",
+  "filename": "w-2.pdf",
+  "s3_uri": "s3://bda-project-storage-a07a2d75b205/documents/1765904567_w-2.pdf",
+  "invocation_arn": "arn:aws:bedrock:us-east-1:624706593351:data-automation-invocation/...",
+  "service": "Amazon Bedrock Data Automation",
+  "message": "Document uploaded to Blueprint project 'test-w2-fixed-1765841521' in your AWS account"
+}
+                            </pre>
+                        </div>
+                    </div>
+
+                    <div class="csharp-section">
+                        <h3>🔷 C# API W-2 Upload</h3>
+                        <div class="command-sequence">
+                            <pre class="code-block">
+# Upload W-2 via C# API
+curl -X POST http://localhost:5000/blueprint/project/test-w2-fixed-1765841521/upload \
+  -F "file=@w-2.pdf"
+
+# Expected response:
+{
+  "Status": "success",
+  "ProjectName": "test-w2-fixed-1765841521",
+  "Filename": "w-2.pdf",
+  "S3Uri": "s3://bda-project-storage-a07a2d75b205/documents/1765904567_w-2.pdf",
+  "InvocationArn": "arn:aws:bedrock:us-east-1:624706593351:data-automation-invocation/...",
+  "Service": "Amazon Bedrock Data Automation",
+  "Message": "Document uploaded to C# Blueprint project 'test-w2-fixed-1765841521' in your AWS account",
+  "Language": "C#"
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-result">
+                    <h3>📊 Processing Results Verification</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Check processing results in S3
+aws s3 ls s3://bda-project-storage-a07a2d75b205/bda-output/ --recursive
+
+# Download BDA result
+aws s3 cp s3://bda-project-storage-a07a2d75b205/bda-output//166ac275-a597-425e-b3c4-01742ec236a3/0/standard_output/0/result.json ./w2_result.json
+
+# View extracted W-2 data
+cat w2_result.json | jq '.document.representation.markdown' | head -20
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Workflow -->
+            <section class="card">
+                <h2>🔄 Complete Testing Workflow</h2>
+                
+                <div class="workflow-step">
+                    <h3>1️⃣ Environment Setup</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Clone/navigate to project
+cd /path/to/your/bda/project
+
+# Verify AWS credentials
+aws sts get-caller-identity
+
+# Check project access
+aws s3 ls s3://bda-project-storage-a07a2d75b205/
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <h3>2️⃣ Build Both Systems</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Build Python
+cd python/BlueprintAPI
+pip install -r requirements.txt  # if exists, or install manually
+python3 -c "from src.api import app; print('Python OK')"
+
+# Build C#
+cd ../../csharp/BlueprintAPI
+dotnet build --configuration Release
+echo "Build exit code: $?"
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <h3>3️⃣ Start APIs</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Start both APIs
+cd ../../
+python3 start_both_apis.py
+
+# Or start individually in separate terminals:
+# Terminal 1: cd python/BlueprintAPI && python3 -m uvicorn src.api:app --port 8000
+# Terminal 2: cd csharp/BlueprintAPI && dotnet run
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <h3>4️⃣ Run Tests</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Quick test (in new terminal)
+python3 quick_dual_api_test.py
+
+# Full production test
+python3 production_readiness_test.py
+
+# Individual API tests
+python3 test_csharp_bda_api.py
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <h3>5️⃣ Process Real W-2</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Test with your actual W-2 file
+curl -X POST http://localhost:8000/blueprint/project/test-w2-fixed-1765841521/upload \
+  -F "file=@w-2.pdf"
+
+# Verify in AWS Console:
+# 1. Go to AWS Console → Bedrock → Data Automation
+# 2. Find project: test-w2-fixed-1765841521
+# 3. Check for processing jobs
+# 4. View results in S3 bucket: bda-project-storage-a07a2d75b205
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <h3>6️⃣ Verify Results</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Check project components
+python3 check_my_bda_project.py
+
+# Analyze results
+aws s3 ls s3://bda-project-storage-a07a2d75b205/ --recursive
+
+# Download and view extracted data
+aws s3 cp s3://bda-project-storage-a07a2d75b205/bda-output//[INVOCATION-ID]/0/standard_output/0/result.json ./result.json
+cat result.json | jq .
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expected Results -->
+            <section class="card">
+                <h2>✅ Expected Test Results</h2>
+                
+                <div class="test-result">
+                    <h3>🎯 Successful Test Indicators</h3>
+                    <ul style="color: #ffffff;">
+                        <li><strong>✅ Build Success:</strong> Both Python and C# compile without errors</li>
+                        <li><strong>✅ API Startup:</strong> Both APIs respond to health checks</li>
+                        <li><strong>✅ Project Access:</strong> Both APIs can list BDA project</li>
+                        <li><strong>✅ Document Upload:</strong> W-2 uploads successfully to S3</li>
+                        <li><strong>✅ BDA Processing:</strong> Invocation ARN returned</li>
+                        <li><strong>✅ Results Storage:</strong> Extracted data in S3 bucket</li>
+                        <li><strong>✅ Cross-Compatibility:</strong> Both APIs work with same project</li>
+                    </ul>
+                </div>
+
+                <div class="test-result">
+                    <h3>📊 Performance Benchmarks</h3>
+                    <ul style="color: #ffffff;">
+                        <li><strong>Health Check:</strong> &lt; 100ms response time</li>
+                        <li><strong>Project List:</strong> &lt; 2 seconds</li>
+                        <li><strong>Document Upload:</strong> &lt; 30 seconds for W-2</li>
+                        <li><strong>BDA Processing:</strong> 1-5 minutes for complete extraction</li>
+                        <li><strong>Concurrent Requests:</strong> Both APIs handle 10+ simultaneous requests</li>
+                    </ul>
+                </div>
+
+                <div class="test-result">
+                    <h3>🔍 Troubleshooting Common Issues</h3>
+                    <ul style="color: #ffffff;">
+                        <li><strong>Port Conflicts:</strong> Kill existing processes on ports 5000/8000</li>
+                        <li><strong>AWS Credentials:</strong> Run <code>aws configure</code></li>
+                        <li><strong>Missing Dependencies:</strong> Install Python packages or .NET SDK</li>
+                        <li><strong>BDA Access:</strong> Verify project ARN and permissions</li>
+                        <li><strong>S3 Permissions:</strong> Check bucket access rights</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Production Deployment -->
+            <section class="card">
+                <h2>🚀 Production Deployment Checklist</h2>
+                
+                <div class="build-step">
+                    <h3>📋 Pre-Deployment Validation</h3>
+                    <div class="command-sequence">
+                        <pre class="code-block">
+# Run full production test
+python3 production_readiness_test.py
+
+# Check for "READY FOR PRODUCTION DEPLOYMENT" message
+# Verify all tests pass:
+# ✅ Build environments ready
+# ✅ APIs start successfully  
+# ✅ All endpoints functional
+# ✅ Performance within limits
+# ✅ Cross-API compatibility verified
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="build-step">
+                    <h3>🎯 Deployment Configuration</h3>
+                    <ul style="color: #ffffff;">
+                        <li><strong>Python API:</strong> Deploy to port 8000 with uvicorn</li>
+                        <li><strong>C# API:</strong> Deploy to port 5000 with Kestrel</li>
+                        <li><strong>Load Balancer:</strong> Route traffic to both APIs</li>
+                        <li><strong>Monitoring:</strong> Health checks every 30 seconds</li>
+                        <li><strong>Logging:</strong> Centralized logging for both APIs</li>
+                        <li><strong>AWS Credentials:</strong> IAM roles for production</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>📚 Part of the BDA Blueprint Documentation Suite</p>
+            <p><a href="index.html">← Back to Documentation Home</a></p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,19 +1,19 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {
+    "net8.0": {
       "AWSSDK.Bedrock/3.7.300": {
         "type": "package",
         "dependencies": {
           "AWSSDK.Core": "[3.7.300, 4.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.Bedrock.dll": {
+          "lib/net8.0/AWSSDK.Bedrock.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.Bedrock.dll": {
+          "lib/net8.0/AWSSDK.Bedrock.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -24,12 +24,12 @@
           "AWSSDK.Core": "[3.7.400.59, 4.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.BedrockDataAutomation.dll": {
+          "lib/net8.0/AWSSDK.BedrockDataAutomation.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.BedrockDataAutomation.dll": {
+          "lib/net8.0/AWSSDK.BedrockDataAutomation.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -40,12 +40,12 @@
           "AWSSDK.Core": "[3.7.400.59, 4.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.BedrockDataAutomationRuntime.dll": {
+          "lib/net8.0/AWSSDK.BedrockDataAutomationRuntime.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.BedrockDataAutomationRuntime.dll": {
+          "lib/net8.0/AWSSDK.BedrockDataAutomationRuntime.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -53,12 +53,12 @@
       "AWSSDK.Core/3.7.400.59": {
         "type": "package",
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+          "lib/net8.0/AWSSDK.Core.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+          "lib/net8.0/AWSSDK.Core.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -88,12 +88,12 @@
           "AWSSDK.Core": "[3.7.300, 4.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.S3.dll": {
+          "lib/net8.0/AWSSDK.S3.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.S3.dll": {
+          "lib/net8.0/AWSSDK.S3.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -104,12 +104,12 @@
           "AWSSDK.Core": "[3.7.300, 4.0.0)"
         },
         "compile": {
-          "lib/netcoreapp3.1/AWSSDK.Textract.dll": {
+          "lib/net8.0/AWSSDK.Textract.dll": {
             "related": ".pdb;.xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/AWSSDK.Textract.dll": {
+          "lib/net8.0/AWSSDK.Textract.dll": {
             "related": ".pdb;.xml"
           }
         }
@@ -966,7 +966,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net7.0": [
+    "net8.0": [
       "AWSSDK.Bedrock >= 3.7.300",
       "AWSSDK.BedrockDataAutomation >= 3.7.300",
       "AWSSDK.BedrockDataAutomationRuntime >= 3.7.300",
@@ -994,14 +994,14 @@
         "/Users/fjabbari/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net7.0"
+        "net8.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -1018,8 +1018,8 @@
       "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
-      "net7.0": {
-        "targetAlias": "net7.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "dependencies": {
           "AWSSDK.Bedrock": {
             "target": "Package",
@@ -1072,15 +1072,15 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.osx-arm64",
-            "version": "[7.0.20, 7.0.20]"
+            "version": "[8.0.14, 8.0.14]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.20, 7.0.20]"
+            "version": "[8.0.14, 8.0.14]"
           }
         ],
         "frameworkReferences": {
@@ -1091,7 +1091,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1103,7 +1103,7 @@
       "message": "BlueprintAPI depends on AWSSDK.BedrockDataAutomation (>= 3.7.300) but AWSSDK.BedrockDataAutomation 3.7.300 was not found. AWSSDK.BedrockDataAutomation 3.7.400 was resolved instead.",
       "libraryId": "AWSSDK.BedrockDataAutomation",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     },
     {
@@ -1113,7 +1113,7 @@
       "message": "BlueprintAPI depends on AWSSDK.BedrockDataAutomationRuntime (>= 3.7.300) but AWSSDK.BedrockDataAutomationRuntime 3.7.300 was not found. AWSSDK.BedrockDataAutomationRuntime 3.7.400 was resolved instead.",
       "libraryId": "AWSSDK.BedrockDataAutomationRuntime",
       "targetGraphs": [
-        "net7.0"
+        "net8.0"
       ]
     }
   ]
