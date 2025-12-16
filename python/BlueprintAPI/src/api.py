@@ -223,14 +223,42 @@ async def list_blueprint_projects():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/blueprint/project/{project_arn:path}/status")
-async def get_project_status(project_arn: str):
-    """Get status of a Blueprint project"""
+@app.get("/blueprint/project/{project_name}/status")
+async def get_project_status(project_name: str):
+    """Get comprehensive status of a BDA project including documents and fields"""
     try:
-        status = await processor.get_project_status(project_arn)
+        status = await processor.get_comprehensive_project_status(project_name)
         return {
             "status": "success",
             "project_status": status
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/blueprint/project/{project_name}/documents")
+async def list_project_documents(project_name: str):
+    """List all documents in a BDA project with metadata"""
+    try:
+        documents = await processor.list_project_documents(project_name)
+        return {
+            "status": "success",
+            "project_name": project_name,
+            "documents": documents,
+            "document_count": len(documents),
+            "message": f"Found {len(documents)} documents in project '{project_name}'"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/blueprint/project/{project_name}/fields")
+async def get_project_fields(project_name: str):
+    """Get extracted fields and schema for a BDA project"""
+    try:
+        fields = await processor.get_project_fields(project_name)
+        return {
+            "status": "success",
+            "project_name": project_name,
+            "fields": fields
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -258,13 +286,19 @@ async def upload_document_to_project(project_name: str, file: UploadFile = File(
             "status": "success",
             "project_name": project_name,
             "filename": file.filename,
-            "s3_uri": result["s3_uri"],
-            "document_key": result["document_key"],
-            "upload_timestamp": result["upload_timestamp"],
+            "s3_uri": result.get("s3_uri") or result.get("document_s3_uri"),
+            "document_key": result.get("document_key"),
+            "upload_timestamp": result.get("upload_timestamp"),
+            "invocation_arn": result.get("invocation_arn"),
+            "service": result.get("service"),
             "message": f"Document uploaded to Blueprint project '{project_name}' in your AWS account"
         })
         
     except Exception as e:
+        print(f"❌ Upload error: {str(e)}")
+        print(f"❌ Error type: {type(e)}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Failed to upload document: {str(e)}")
 
 @app.get("/health")

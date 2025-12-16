@@ -125,4 +125,14 @@ namespace BlueprintAPI.Models
         public string S3Uri { get; set; } = string.Empty;
         public string MetadataKey { get; set; } = string.Empty;
         public long UploadTimestamp { get; set; }
+        
+        // BDA-specific properties
+        public string? InvocationArn { get; set; }
+        public string? ProjectArn { get; set; }
+        public string? ProjectBucket { get; set; }
+        public string? ResultsS3Uri { get; set; }
+        public string Status { get; set; } = string.Empty;
+        public string Service { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public DocumentProcessingResult? ProcessingResult { get; set; }
     }

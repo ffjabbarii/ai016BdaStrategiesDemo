@@ -233,6 +233,8 @@ namespace BlueprintAPI.Controllers
                     S3Uri = result.S3Uri,
                     DocumentKey = result.DocumentKey,
                     UploadTimestamp = result.UploadTimestamp,
+                    InvocationArn = result.InvocationArn,
+                    Service = result.Service,
                     Message = $"Document uploaded to C# Blueprint project '{projectName}' in your AWS account",
                     Language = "C#"
                 });

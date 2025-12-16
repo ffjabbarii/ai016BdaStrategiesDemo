@@ -9,6 +9,9 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.Textract" Version="3.7.300" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.300" />
+    <PackageReference Include="AWSSDK.Bedrock" Version="3.7.300" />
+    <PackageReference Include="AWSSDK.BedrockDataAutomation" Version="3.7.300" />
+    <PackageReference Include="AWSSDK.BedrockDataAutomationRuntime" Version="3.7.300" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

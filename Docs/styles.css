@@ -198,6 +198,10 @@ body {
     color: #ff6b35;
 }
 
+.aws-flow-card .card-icon {
+    color: #ff9500;
+}
+
 /* Footer */
 .footer {
     background: rgba(0, 0, 0, 0.1);
@@ -371,6 +375,29 @@ W-2 Document Flow Card Styling */
 }
 
 .workflow-card .tag {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+}
+/* A
+WS BDA Flow Card Styling */
+.aws-flow-card {
+    background: linear-gradient(135deg, #ff9500 0%, #ff6b00 100%) !important;
+    color: white !important;
+}
+
+.aws-flow-card .card-icon {
+    color: white !important;
+}
+
+.aws-flow-card h3 {
+    color: white !important;
+}
+
+.aws-flow-card p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.aws-flow-card .tag {
     background: rgba(255, 255, 255, 0.2) !important;
     color: white !important;
 }

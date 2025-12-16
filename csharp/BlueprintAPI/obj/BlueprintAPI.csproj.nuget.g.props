@@ -18,8 +18,11 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/Users/fjabbari/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
-    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.core/3.7.300</PkgAWSSDK_Core>
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.core/3.7.400.59</PkgAWSSDK_Core>
     <PkgAWSSDK_Textract Condition=" '$(PkgAWSSDK_Textract)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.textract/3.7.300</PkgAWSSDK_Textract>
     <PkgAWSSDK_S3 Condition=" '$(PkgAWSSDK_S3)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.s3/3.7.300</PkgAWSSDK_S3>
+    <PkgAWSSDK_BedrockDataAutomationRuntime Condition=" '$(PkgAWSSDK_BedrockDataAutomationRuntime)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.bedrockdataautomationruntime/3.7.400</PkgAWSSDK_BedrockDataAutomationRuntime>
+    <PkgAWSSDK_BedrockDataAutomation Condition=" '$(PkgAWSSDK_BedrockDataAutomation)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.bedrockdataautomation/3.7.400</PkgAWSSDK_BedrockDataAutomation>
+    <PkgAWSSDK_Bedrock Condition=" '$(PkgAWSSDK_Bedrock)' == '' ">/Users/fjabbari/.nuget/packages/awssdk.bedrock/3.7.300</PkgAWSSDK_Bedrock>
   </PropertyGroup>
 </Project>

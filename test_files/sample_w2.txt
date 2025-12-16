@@ -1,39 +1,129 @@
-W-2 Wage and Tax Statement - 2023
 
-Employee Information:
-Name: John Doe
-SSN: 123-45-6789
-Address: 123 Main St, Anytown, ST 12345
+I do not see the w-2.pdf document added to this project. Here is what I see:
+Skip to Main Content
 
-Employer Information:
-Name: Sample Corporation
-EIN: 12-3456789
-Address: 456 Business Ave, Corporate City, ST 67890
+Search
+[Option+S]
 
-Tax Information:
-Box 1 - Wages, tips, other compensation: $75,000.00
-Box 2 - Federal income tax withheld: $12,500.00
-Box 3 - Social security wages: $75,000.00
-Box 4 - Social security tax withheld: $4,650.00
-Box 5 - Medicare wages and tips: $75,000.00
-Box 6 - Medicare tax withheld: $1,087.50
-Box 7 - Social security tips: $0.00
-Box 8 - Allocated tips: $0.00
-Box 9 - [blank]
-Box 10 - Dependent care benefits: $0.00
-Box 11 - Nonqualified plans: $0.00
-Box 12a - See instructions for box 12
-Box 12b - 
-Box 12c - 
-Box 12d - 
-Box 13 - Statutory employee: No
-Box 13 - Retirement plan: Yes
-Box 13 - Third-party sick pay: No
-Box 14 - Other: 
-Box 15 - State: ST
-Box 15 - Employer's state ID number: 123456789
-Box 16 - State wages, tips, etc.: $75,000.00
-Box 17 - State income tax: $3,750.00
-Box 18 - Local wages, tips, etc.: 
-Box 19 - Local income tax: 
-Box 20 - Locality name:
+
+
+
+United States (N. Virginia)
+
+Account ID: 6247-0659-3351
+fred001
+
+Amazon Bedrock
+Data Automation
+Projects
+bda-working-test-v2
+Amazon Bedrock
+Data Automation
+Projects
+bda-working-test-v2
+
+
+
+Amazon Bedrock
+Discover
+Overview
+Model catalog
+API keys
+Test
+Chat / Text playground
+Image / Video playground
+Watermark detection
+Tokenizer
+New
+Infer
+Cross-region inference
+Batch inference
+Provisioned Throughput
+Custom model on-demand
+Tune
+Custom models
+Prompt router models
+Imported models
+Marketplace model deployments
+Build
+Agents
+Flows
+Knowledge Bases
+Automated Reasoning
+Guardrails
+Prompt Management
+Data Automation
+AgentCore
+Assess
+Evaluations
+Configure and learn
+Settings
+New
+Model access
+User guide
+Bedrock Service Terms
+bda-working-test-v2
+Edit
+Test
+How BDA Project works
+Standard Output
+Standard output is pre-defined extraction managed by Bedrock.
+
+It can extract information from documents, images, videos, and audio. When creating a BDA Project, you can set your preference.
+
+Custom Output
+Custom output provides the flexibility to define extraction that are not offered from the standard output, it also allows you to transit information with a format that can merge into your data management system schema. To configure custom output, you need to add Blueprint(s) into a BDA Project as a custom output configuration.
+
+Create Blueprint
+If you do not find a corresponding blueprint from the existing blueprint list, you can create a blueprint. When you upload a file to create a new blueprint, the system will try to match from global categories. If the system cannot find a match, you can generate a blueprint in a minute
+
+Add from Blueprint list
+You can add sample or custom blueprints into a BDA Project. You can only extract files through blueprints of their respective modalities (For example, an image file can only be processed by an image blueprint).
+
+Test & deploy
+After creating, you can use the project in inference or test your project in console.
+
+Project Details
+ARN
+arn:aws:bedrock:us-east-1:624706593351:data-automation-project/0483b44689d1
+Description
+BDA Working Test V2
+Last modified
+December 15, 2025, 08:49:16 (UTC-06:00)
+
+Standard output
+
+Custom output
+
+Advanced settings
+Modality enablement Info
+Modality Enablement allows you to choose which modalities a project can process. By default, all modalities are enabled. You can choose to disable a specific modality, preventing the API from returning results related to that modality. This provides flexibility in customizing the response based on user preferences or application requirements. At least one modality must be selected.
+
+Document modality
+Image modality
+Video modality
+Audio modality
+Manual modality routing (0) Info
+Modality routing enables you to control how the uploaded files are processed by the project. By default, the system intelligently auto-routes the file to the most relevant modality. You can override default settings and specify how png, jpeg, mp4 or mov file type should be interpreted for data extraction. For example, a png file type can be treated as an document, or a mp4 file type can treated as an audio source.
+
+No Manual modality routing associated with the resource
+
+KMS key
+KMS Key is used to create or edit a project resource. By default, your data is encrypted using a key that AWS owns and manages. To use a different key, you can customize your encryption settings.
+Customize encryption settings (advanced)
+To use the default key, clear this option.
+Tags
+(0)
+Tags are labels assigned to a project resource. Each tag consists of a key and an optional value. You can use tags to search and filter your resources.
+
+Key
+Value
+
+CloudShell
+Feedback
+
+Console Mobile App
+© 2025, Amazon Web Services, Inc. or its affiliates.
+Privacy
+Terms
+Cookie preferences

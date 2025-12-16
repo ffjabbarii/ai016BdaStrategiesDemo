@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Suggested Blueprint Document Processing Flow - BDA Strategies Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <style>
+        .status-completed { color: #28a745; }
+        .status-partial { color: #ffc107; }
+        .status-missing { color: #dc3545; }
+        .flow-step { 
+            background: rgba(255,255,255,0.05); 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 8px; 
+            border-left: 4px solid #007bff;
+        }
+        .flow-step.completed { border-left-color: #28a745; }
+        .flow-step.partial { border-left-color: #ffc107; }
+        .flow-step.missing { border-left-color: #dc3545; }
+        .code-block {
+            background: #1e1e1e !important;
+            color: #d4d4d4 !important;
+            padding: 20px !important;
+            border-radius: 8px !important;
+            overflow-x: auto !important;
+            margin: 15px 0 !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+            font-size: 14px !important;
+            line-height: 1.5 !important;
+            border: 1px solid #333 !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <i class="fas fa-sitemap"></i>
+                AWS Suggested Blueprint Document Processing Flow
+            </h1>
+            <p class="subtitle">Official AWS BDA Workflow vs Current Implementation</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a> > AWS BDA Flow Documentation
+            </nav>
+
+            <!-- Executive Summary -->
+            <section class="intro">
+                <h2>📋 Executive Summary</h2>
+                <div style="background: rgba(220, 53, 69, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(220, 53, 69, 0.3);">
+                    <h3 style="color: #dc3545; margin-bottom: 15px;">⚠️ Current Status: AWS BDA Flow NOT Implemented</h3>
+                    <p><strong>Issue:</strong> We have created BDA projects and stored documents in S3, but we have NOT implemented the official AWS BDA processing workflow.</p>
+                    <p><strong>Result:</strong> Documents do not appear in BDA project interface as processing jobs with extracted fields.</p>
+                    <p><strong>Root Cause:</strong> Missing proper implementation of <code>InvokeDataAutomationAsync</code> API with correct profile ARN.</p>
+                </div>
+            </section>
+
+            <!-- AWS Official BDA Workflow -->
+            <section>
+                <h2>🏛️ AWS Official BDA Workflow</h2>
+                <p>According to AWS Bedrock Data Automation documentation, the official workflow is:</p>
+
+                <div class="flow-step completed">
+                    <h3><i class="fas fa-check-circle status-completed"></i> Step 1: Create BDA Project</h3>
+                    <p><strong>Status:</strong> ✅ COMPLETED</p>
+                    <p><strong>What AWS Says:</strong> Create a BDA project that defines processing configuration and output schema.</p>
+                    <p><strong>What We Did:</strong> Successfully created BDA project <code>bda-working-test-v2</code></p>
+                    <div class="code-block">
+Project ARN: arn:aws:bedrock:us-east-1:624706593351:data-automation-project/0483b44689d1
+Status: COMPLETED
+Configuration: Standard output with document extraction enabled</div>
+                </div>
+
+                <div class="flow-step completed">
+                    <h3><i class="fas fa-check-circle status-completed"></i> Step 2: Upload Documents to S3</h3>
+                    <p><strong>Status:</strong> ✅ COMPLETED</p>
+                    <p><strong>What AWS Says:</strong> Documents must be stored in S3 before processing (BDA doesn't store documents).</p>
+                    <p><strong>What We Did:</strong> Successfully uploaded W-2 PDF to S3</p>
+                    <div class="code-block">
+S3 URI: s3://bda-project-storage-0483b44689d1/documents/1765815333_w-2.pdf
+Size: 1.3MB
+Format: PDF (converted to PNG for processing)</div>
+                </div>
+
+                <div class="flow-step missing">
+                    <h3><i class="fas fa-times-circle status-missing"></i> Step 3: Submit Processing Job</h3>
+                    <p><strong>Status:</strong> ❌ NOT IMPLEMENTED</p>
+                    <p><strong>What AWS Says:</strong> Use <code>InvokeDataAutomationAsync</code> to create processing jobs that appear in project interface.</p>
+                    <p><strong>What We Did:</strong> Failed to implement - got stuck on <code>dataAutomationProfileArn</code> parameter</p>
+                    <div class="code-block">
+# Required API Call (NOT WORKING)
+runtime_client.invoke_data_automation_async(
+    inputConfiguration={'s3Uri': 's3://bucket/document.pdf'},
+    outputConfiguration={'s3Uri': 's3://bucket/output/'},
+    dataAutomationConfiguration={'dataAutomationProjectArn': 'project-arn'},
+    dataAutomationProfileArn='???' # MISSING - This is the blocker
+)</div>
+                </div>
+
+                <div class="flow-step missing">
+                    <h3><i class="fas fa-times-circle status-missing"></i> Step 4: Processing Job Appears in BDA Interface</h3>
+                    <p><strong>Status:</strong> ❌ NOT WORKING</p>
+                    <p><strong>What AWS Says:</strong> Processing jobs appear in BDA project interface showing status and results.</p>
+                    <p><strong>What We See:</strong> Empty BDA project interface - no processing jobs visible</p>
+                    <p><strong>Expected Location:</strong> AWS Console → Amazon Bedrock → Data Automation → Projects → bda-working-test-v2</p>
+                </div>
+
+                <div class="flow-step missing">
+                    <h3><i class="fas fa-times-circle status-missing"></i> Step 5: JSON Results Returned</h3>
+                    <p><strong>Status:</strong> ❌ NOT IMPLEMENTED</p>
+                    <p><strong>What AWS Says:</strong> BDA returns structured JSON with extracted fields to specified S3 output location.</p>
+                    <p><strong>What We Did:</strong> Created custom Textract processing instead of using BDA results</p>
+                </div>
+            </section>
+
+            <!-- What We Actually Implemented -->
+            <section>
+                <h2>🔧 What We Actually Implemented (Non-AWS Approach)</h2>
+                
+                <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                    <h3 style="color: #ffc107;">⚠️ Custom Implementation (Not AWS BDA Flow)</h3>
+                    
+                    <h4>✅ What Works:</h4>
+                    <ul>
+                        <li>BDA project creation via API</li>
+                        <li>Document upload to S3</li>
+                        <li>PDF to PNG conversion</li>
+                        <li>Direct Textract processing</li>
+                        <li>Custom JSON results storage</li>
+                    </ul>
+
+                    <h4>❌ What's Missing:</h4>
+                    <ul>
+                        <li>No processing jobs in BDA project interface</li>
+                        <li>No BDA-generated JSON results</li>
+                        <li>No proper AWS BDA workflow</li>
+                        <li>Documents don't appear in project with field definitions</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+# Current Custom Flow (NOT AWS BDA)
+1. Create BDA project ✅
+2. Upload to custom S3 bucket ✅  
+3. Convert PDF to PNG ✅
+4. Process with direct Textract ✅
+5. Store custom JSON results ✅
+6. NO BDA processing jobs created ❌</div>
+            </section>
+
+            <!-- The Core Problem -->
+            <section>
+                <h2>🎯 The Core Problem</h2>
+                
+                <div style="background: rgba(220, 53, 69, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(220, 53, 69, 0.3);">
+                    <h3 style="color: #dc3545;">Missing: dataAutomationProfileArn</h3>
+                    
+                    <p><strong>The Blocker:</strong> AWS BDA requires a <code>dataAutomationProfileArn</code> parameter that we cannot determine.</p>
+                    
+                    <div class="code-block">
+# Error when trying to create processing job:
+ValidationException: Value at 'dataAutomationProfileArn' failed to satisfy constraint: 
+Member must satisfy regular expression pattern: 
+arn:aws(|-cn|-iso|-iso-[a-z]|-us-gov):bedrock:[a-zA-Z0-9-]*:(aws|[0-9]{12}):data-automation-profile/[a-zA-Z0-9-_.]+</div>
+
+                    <p><strong>Attempted Solutions:</strong></p>
+                    <ul>
+                        <li>❌ <code>arn:aws:bedrock:us-east-1:624706593351:data-automation-profile/default</code></li>
+                        <li>❌ <code>arn:aws:bedrock:us-east-1:aws:data-automation-profile/default</code></li>
+                        <li>❌ Using project ARN as profile ARN</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- What Needs to Be Done -->
+            <section>
+                <h2>📝 What Needs to Be Done</h2>
+                
+                <div class="flow-step missing">
+                    <h3>🔍 Task 1: Resolve dataAutomationProfileArn</h3>
+                    <p><strong>Priority:</strong> CRITICAL</p>
+                    <p><strong>Action Required:</strong></p>
+                    <ul>
+                        <li>Research AWS documentation for profile ARN creation/discovery</li>
+                        <li>Check if profiles need to be created separately</li>
+                        <li>Find correct profile ARN format for our account</li>
+                        <li>Test profile ARN candidates systematically</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step missing">
+                    <h3>🚀 Task 2: Implement InvokeDataAutomationAsync</h3>
+                    <p><strong>Priority:</strong> HIGH</p>
+                    <p><strong>Action Required:</strong></p>
+                    <div class="code-block">
+# Target Implementation
+response = runtime_client.invoke_data_automation_async(
+    inputConfiguration={
+        's3Uri': 's3://bda-project-storage-0483b44689d1/documents/1765815333_w-2.pdf'
+    },
+    outputConfiguration={
+        's3Uri': 's3://bda-project-storage-0483b44689d1/bda-output/'
+    },
+    dataAutomationConfiguration={
+        'dataAutomationProjectArn': 'arn:aws:bedrock:us-east-1:624706593351:data-automation-project/0483b44689d1'
+    },
+    dataAutomationProfileArn='CORRECT_PROFILE_ARN_HERE'
+)</div>
+                </div>
+
+                <div class="flow-step missing">
+                    <h3>✅ Task 3: Verify BDA Project Interface</h3>
+                    <p><strong>Priority:</strong> MEDIUM</p>
+                    <p><strong>Action Required:</strong></p>
+                    <ul>
+                        <li>Confirm processing job appears in BDA project interface</li>
+                        <li>Verify document fields are extracted and displayed</li>
+                        <li>Check JSON results are generated by BDA (not custom Textract)</li>
+                        <li>Validate complete AWS BDA workflow</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Success Criteria -->
+            <section>
+                <h2>🎯 Success Criteria</h2>
+                
+                <div style="background: rgba(40, 167, 69, 0.1); padding: 20px; border-radius: 8px; border: 1px solid rgba(40, 167, 69, 0.3);">
+                    <h3 style="color: #28a745;">✅ When AWS BDA Flow is Complete:</h3>
+                    
+                    <ol>
+                        <li><strong>BDA Project Interface Shows:</strong>
+                            <ul>
+                                <li>Processing job for W-2 document</li>
+                                <li>Job status (completed/running/failed)</li>
+                                <li>Input S3 URI (document location)</li>
+                                <li>Output S3 URI (results location)</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>Document Fields Visible:</strong>
+                            <ul>
+                                <li>Employee information fields</li>
+                                <li>Employer information fields</li>
+                                <li>Tax information fields</li>
+                                <li>Confidence scores</li>
+                            </ul>
+                        </li>
+                        
+                        <li><strong>JSON Results Generated by BDA:</strong>
+                            <ul>
+                                <li>Structured W-2 data in BDA format</li>
+                                <li>Results stored in specified S3 output location</li>
+                                <li>Results accessible through BDA project interface</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Current Workaround -->
+            <section>
+                <h2>🔄 Current Workaround Status</h2>
+                
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px;">
+                    <h3>Temporary Solution in Place:</h3>
+                    <p>While AWS BDA flow is not working, we have a functional document processing system:</p>
+                    
+                    <div class="code-block">
+# Current Working Endpoints:
+POST /process/w2                           # Direct W-2 processing
+POST /blueprint/project/{name}/upload      # Upload to project storage
+GET  /blueprint/projects                   # List BDA projects
+
+# Document Location:
+S3 Bucket: bda-project-storage-0483b44689d1
+Document:  documents/1765815333_w-2.pdf
+Results:   results/1765815333_w-2.pdf_results.json</div>
+
+                    <p><strong>Limitation:</strong> This is NOT the AWS BDA workflow and documents do not appear in the BDA project interface.</p>
+                </div>
+            </section>
+
+            <div class="back-link">
+                <a href="index.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Documentation Portal
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 BDA Strategies Demo. AWS BDA Flow Documentation.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

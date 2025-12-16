@@ -44,6 +44,18 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AWSSDK.Bedrock": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.BedrockDataAutomation": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
+            "AWSSDK.BedrockDataAutomationRuntime": {
+              "target": "Package",
+              "version": "[3.7.300, )"
+            },
             "AWSSDK.Extensions.NETCore.Setup": {
               "target": "Package",
               "version": "[3.7.7, )"
