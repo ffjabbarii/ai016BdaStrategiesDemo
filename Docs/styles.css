@@ -401,3 +401,136 @@ WS BDA Flow Card Styling */
     background: rgba(255, 255, 255, 0.2) !important;
     color: white !important;
 }
+/* B
+reakthrough Card Styling */
+.breakthrough-card {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24) !important;
+    border: 2px solid #ff9ff3 !important;
+    box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3) !important;
+    transform: scale(1.02);
+    animation: breakthrough-glow 2s ease-in-out infinite alternate;
+}
+
+.breakthrough-card:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 25px 50px rgba(255, 107, 107, 0.4) !important;
+}
+
+.breakthrough-card .card-icon {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    font-size: 2rem !important;
+}
+
+.breakthrough-card h3 {
+    color: white !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.breakthrough-card p {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-weight: 500 !important;
+}
+
+.breakthrough-card .tag.breakthrough {
+    background: linear-gradient(135deg, #feca57, #ff9ff3) !important;
+    color: #2c2c2c !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    animation: breakthrough-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes breakthrough-glow {
+    0% {
+        box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3), 0 0 20px rgba(255, 107, 107, 0.2);
+    }
+    100% {
+        box-shadow: 0 25px 50px rgba(255, 107, 107, 0.4), 0 0 30px rgba(255, 107, 107, 0.3);
+    }
+}
+
+@keyframes breakthrough-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}/* Tools 
+Card Styling */
+.tools-card {
+    background: linear-gradient(135deg, #34495e, #2c3e50) !important;
+    border: 2px solid #95a5a6 !important;
+    box-shadow: 0 20px 40px rgba(52, 73, 94, 0.3) !important;
+    color: white !important;
+}
+
+.tools-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 25px 50px rgba(52, 73, 94, 0.4) !important;
+}
+
+.tools-card .card-icon {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ecf0f1 !important;
+    font-size: 2rem !important;
+}
+
+.tools-card h3 {
+    color: #ecf0f1 !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tools-card p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 400 !important;
+}
+
+.tools-card .tag.tools {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+/* An
+alysis Card Styling */
+.analysis-card {
+    background: linear-gradient(135deg, #6f42c1, #5a32a3) !important;
+    border: 2px solid #8a63d2 !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+}
+
+.analysis-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 25px 50px rgba(111, 66, 193, 0.4) !important;
+}
+
+.analysis-card .card-icon {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #f8f9fa !important;
+    font-size: 2rem !important;
+}
+
+.analysis-card h3 {
+    color: #f8f9fa !important;
+    font-weight: 700 !important;
+    margin-bottom: 10px !important;
+}
+
+.analysis-card p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 400 !important;
+}
+
+.analysis-card .tag.analysis {
+    background: linear-gradient(135deg, #e83e8c, #d63384) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}

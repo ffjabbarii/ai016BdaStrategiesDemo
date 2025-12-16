@@ -406,6 +406,9 @@ class BlueprintProcessor:
                 raise Exception(f"AWS Textract error ({error_code}): {error_message}")
         except Exception as e:
             print(f"❌ Unexpected error in standard Textract processing: {str(e)}")
+            print(f"   Error type: {type(e).__name__}")
+            print(f"   Document size: {len(document_bytes)} bytes")
+            print(f"   Document format check: {'PDF' if document_bytes.startswith(b'%PDF-') else 'Other'}")
             raise Exception(f"Standard Textract processing failed: {str(e)}")
     
     def _process_bank_statement_standard_textract(self, document_bytes: bytes) -> Dict[str, Any]:
@@ -832,8 +835,8 @@ class BlueprintProcessor:
                 # Use BDA runtime API for real BDA projects
                 return await self._process_document_with_bda(project_config, document_bytes, filename)
             else:
-                # Use S3 upload for legacy projects
-                return await self._upload_to_s3_project(project_config, document_bytes, filename)
+                # This should be a BDA project - if not, something is wrong
+                raise Exception(f"Project ARN does not appear to be a BDA project: {project_arn}")
         except Exception as e:
             print(f"❌ Failed to upload document: {str(e)}")
             raise Exception(f"Document upload failed: {str(e)}")
@@ -903,22 +906,71 @@ class BlueprintProcessor:
                 try:
                     print("🚀 Creating BDA processing job that will appear in project interface...")
                     
-                    # Get or create the correct data automation profile ARN
-                    profile_arn = await self._get_or_create_data_automation_profile(project_arn)
-                    print(f"📋 Using data automation profile: {profile_arn}")
+                    # Try BDA job creation with different approaches
+                    bda_response = None
                     
-                    bda_response = self.bedrock_data_automation_runtime_client.invoke_data_automation_async(
-                        inputConfiguration={
-                            's3Uri': permanent_s3_uri
-                        },
-                        outputConfiguration={
-                            's3Uri': f"s3://{project_bucket}/bda-output/"
-                        },
-                        dataAutomationConfiguration={
-                            'dataAutomationProjectArn': project_arn
-                        },
-                        dataAutomationProfileArn=profile_arn
-                    )
+                    # Approach 1: Try without profile ARN (let BDA use default)
+                    try:
+                        print("🧪 Attempt 1: BDA job without profile ARN (using default)...")
+                        bda_response = self.bedrock_data_automation_runtime_client.invoke_data_automation_async(
+                            inputConfiguration={
+                                's3Uri': permanent_s3_uri
+                            },
+                            outputConfiguration={
+                                's3Uri': f"s3://{project_bucket}/bda-output/"
+                            },
+                            dataAutomationConfiguration={
+                                'dataAutomationProjectArn': project_arn
+                            }
+                            # No dataAutomationProfileArn - let BDA use default
+                        )
+                        print("✅ BDA job created successfully without profile ARN!")
+                        
+                    except Exception as e1:
+                        # Handle both ClientError and parameter validation errors
+                        if hasattr(e1, 'response'):
+                            error_code1 = e1.response.get('Error', {}).get('Code', '')
+                            error_message1 = e1.response.get('Error', {}).get('Message', '')
+                        else:
+                            error_code1 = type(e1).__name__
+                            error_message1 = str(e1)
+                        print(f"❌ Attempt 1 failed: {error_code1} - {error_message1}")
+                        
+                        # Approach 2: Try with profile ARN resolution
+                        try:
+                            print("🧪 Attempt 2: BDA job with profile ARN resolution...")
+                            profile_arn = await self._get_or_create_data_automation_profile(project_arn)
+                            print(f"📋 Using data automation profile: {profile_arn}")
+                            
+                            bda_response = self.bedrock_data_automation_runtime_client.invoke_data_automation_async(
+                                inputConfiguration={
+                                    's3Uri': permanent_s3_uri
+                                },
+                                outputConfiguration={
+                                    's3Uri': f"s3://{project_bucket}/bda-output/"
+                                },
+                                dataAutomationConfiguration={
+                                    'dataAutomationProjectArn': project_arn
+                                },
+                                dataAutomationProfileArn=profile_arn
+                            )
+                            print("✅ BDA job created successfully with profile ARN!")
+                            
+                        except ClientError as e2:
+                            error_code2 = e2.response.get('Error', {}).get('Code', '')
+                            error_message2 = e2.response.get('Error', {}).get('Message', '')
+                            print(f"❌ Attempt 2 failed: {error_code2} - {error_message2}")
+                            
+                            # Both attempts failed, raise the most informative error
+                            raise ClientError(
+                                error_response={
+                                    'Error': {
+                                        'Code': 'BDAJobCreationFailed',
+                                        'Message': f"BDA job creation failed. Attempt 1 (no profile): {error_code1} - {error_message1}. Attempt 2 (with profile): {error_code2} - {error_message2}"
+                                    }
+                                },
+                                operation_name='invoke_data_automation_async'
+                            )
                     
                     invocation_arn = bda_response.get('invocationArn')
                     print(f"✅ BDA processing job created: {invocation_arn}")
@@ -937,11 +989,19 @@ class BlueprintProcessor:
                     }
                     
                 except ClientError as bda_error:
-                    print(f"❌ BDA processing job failed: {str(bda_error)}")
-                    print("🔄 Falling back to local processing...")
+                    error_code = bda_error.response.get('Error', {}).get('Code', '')
+                    error_message = bda_error.response.get('Error', {}).get('Message', '')
                     
-                    # Fallback: Process locally and store results
-                    processing_result = await self._process_document_with_conversion(document_bytes, filename)
+                    print(f"❌ BDA JOB CREATION FAILED")
+                    print(f"   Error Code: {error_code}")
+                    print(f"   Error Message: {error_message}")
+                    print(f"   Project ARN: {project_arn}")
+                    print(f"   Input S3 URI: {permanent_s3_uri}")
+                    print(f"   Output S3 URI: s3://{project_bucket}/bda-output/")
+                    print(f"   Full Error Response: {bda_error.response}")
+                    
+                    # Re-raise the error instead of falling back
+                    raise Exception(f"BDA job creation failed: {error_code} - {error_message}")
                 
                 # Store processing results in project bucket
                 results_key = f"results/{int(time.time())}_{filename}_results.json"
@@ -965,17 +1025,19 @@ class BlueprintProcessor:
                 }
                 
             except Exception as s3_error:
-                print(f"❌ S3 upload failed: {str(s3_error)}")
-                return await self._process_document_directly(document_bytes, filename)
+                print(f"❌ S3 setup failed: {str(s3_error)}")
+                raise Exception(f"S3 setup failed: {str(s3_error)}")
             
         except ClientError as e:
             error_code = e.response.get('Error', {}).get('Code', '')
             error_message = e.response.get('Error', {}).get('Message', '')
-            print(f"❌ BDA processing failed: {error_code} - {error_message}")
+            print(f"❌ BDA PROCESSING FAILED")
+            print(f"   Error Code: {error_code}")
+            print(f"   Error Message: {error_message}")
+            print(f"   Full Error Response: {e.response}")
             
-            # Fallback to direct document processing
-            print("🔄 Falling back to direct document processing...")
-            return await self._process_document_directly(document_bytes, filename)
+            # Re-raise the error instead of falling back
+            raise Exception(f"BDA processing failed: {error_code} - {error_message}")
     
     async def _upload_to_s3_project(self, project_config: Dict[str, Any], document_bytes: bytes, filename: str) -> Dict[str, Any]:
         """Upload document to S3-based legacy project"""
@@ -1057,8 +1119,11 @@ class BlueprintProcessor:
                     
                 except ImportError:
                     print("⚠️ PyMuPDF not available, trying PDF directly")
+                    print("   Install PyMuPDF with: pip install PyMuPDF")
                 except Exception as e:
                     print(f"⚠️ PDF conversion failed: {str(e)}, trying PDF directly")
+                    print(f"   PDF conversion error details: {type(e).__name__}")
+                    # Continue with original PDF bytes
             
             # Determine document type from filename
             doc_type = 'w2' if 'w2' in filename.lower() or 'w-2' in filename.lower() else 'document'
@@ -1090,63 +1155,18 @@ class BlueprintProcessor:
         return content_types.get(ext, 'application/octet-stream')
     
     async def _get_or_create_data_automation_profile(self, project_arn: str) -> str:
-        """Get or create the correct data automation profile ARN for BDA processing"""
-        try:
-            print("🔍 Resolving data automation profile ARN...")
-            
-            # Extract account ID and region from project ARN
-            # Format: arn:aws:bedrock:us-east-1:624706593351:data-automation-project/0483b44689d1
-            arn_parts = project_arn.split(':')
-            if len(arn_parts) >= 5:
-                region = arn_parts[3]
-                account_id = arn_parts[4]
-            else:
-                raise Exception(f"Invalid project ARN format: {project_arn}")
-            
-            # Try different profile ARN patterns based on AWS documentation
-            profile_candidates = [
-                # Standard default profile pattern
-                f"arn:aws:bedrock:{region}:{account_id}:data-automation-profile/default",
-                # AWS managed profile pattern  
-                f"arn:aws:bedrock:{region}:aws:data-automation-profile/default",
-                # Account-specific profile pattern
-                f"arn:aws:bedrock:{region}:{account_id}:data-automation-profile/standard",
-                # Project-based profile pattern
-                f"arn:aws:bedrock:{region}:{account_id}:data-automation-profile/{project_arn.split('/')[-1]}"
-            ]
-            
-            print(f"🔍 Testing {len(profile_candidates)} profile ARN candidates...")
-            
-            # Test each candidate by attempting to list profiles or validate
-            for i, candidate_arn in enumerate(profile_candidates, 1):
-                try:
-                    print(f"🧪 Testing candidate {i}: {candidate_arn}")
-                    
-                    # Try to validate this profile ARN by attempting a dry-run or list operation
-                    # Since there's no direct "validate profile" API, we'll try the actual call
-                    # with a minimal test configuration
-                    
-                    # For now, return the most likely candidate based on AWS patterns
-                    if "default" in candidate_arn and account_id in candidate_arn:
-                        print(f"✅ Selected profile ARN: {candidate_arn}")
-                        return candidate_arn
-                        
-                except ClientError as e:
-                    error_code = e.response.get('Error', {}).get('Code', '')
-                    print(f"❌ Candidate {i} failed: {error_code}")
-                    continue
-            
-            # If no candidates work, try to create a default profile
-            print("🔄 No existing profiles found, attempting to create default profile...")
-            return await self._create_default_data_automation_profile(region, account_id)
-            
-        except Exception as e:
-            print(f"❌ Failed to resolve profile ARN: {str(e)}")
-            # Fallback to the most standard pattern
-            fallback_arn = f"arn:aws:bedrock:{self.region_name}:aws:data-automation-profile/default"
-            print(f"🔄 Using fallback profile ARN: {fallback_arn}")
-            return fallback_arn
-    
+        """Get the correct BDA profile ARN for BDA processing"""
+        # Based on validation error, we need the correct BDA profile ARN format
+        # Pattern: arn:aws:bedrock:[region]:[account]:data-automation-profile/[name]
+        
+        region = 'us-east-1'
+        account_id = '624706593351'
+        
+        # Based on AWS CRIS documentation: use region-specific profile name
+        # For us-east-1: us.data-automation-v1
+        profile_arn = f"arn:aws:bedrock:{region}:{account_id}:data-automation-profile/us.data-automation-v1"
+        print(f"📋 Using BDA profile ARN: {profile_arn}")
+        return profile_arn
     async def _create_default_data_automation_profile(self, region: str, account_id: str) -> str:
         """Attempt to create a default data automation profile"""
         try:

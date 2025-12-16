@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Strategies Demo - Project Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .portal-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .description {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .highlight-box {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            animation: success-glow 2s ease-in-out infinite alternate;
+        }
+
+        .highlight-box h3 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .highlight-box p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+        }
+
+        @keyframes success-glow {
+            0% {
+                box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(46, 204, 113, 0.5);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portal-container {
+                padding: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 2.5em;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <h1 class="logo">🚀 BDA Strategies Demo</h1>
+        <p class="subtitle">Business Document Analysis with AWS Services</p>
+        
+        <div class="highlight-box">
+            <h3>✅ BDA Blueprint Successfully Implemented!</h3>
+            <p>Amazon Bedrock Data Automation is now working with real AI-powered document processing</p>
+        </div>
+        
+        <p class="description">
+            Complete implementation of AWS Business Document Analysis using three different patterns, 
+            available in both Python and C#. Features real Amazon Bedrock Data Automation integration 
+            with comprehensive documentation and diagnostic tools.
+        </p>
+        
+        <div class="buttons">
+            <a href="Docs/index.html" class="btn btn-primary">
+                📚 Documentation Portal
+            </a>
+            <a href="Docs/bda-blueprint-setup.html" class="btn btn-success">
+                🚀 BDA Setup Guide
+            </a>
+            <a href="Docs/how-to-build-blueprint-w2.html" class="btn">
+                🔧 W-2 Processing
+            </a>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.9em;">
+                <strong>Quick Start:</strong> Run <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">python Startup/startup.py</code> to launch the project manager
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDA Blueprint Setup & Operation Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3 {
+            color: #34495e;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid #3498db;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        /* VS Code-like Python Syntax Highlighting */
+        .keyword { color: #569cd6; font-weight: bold; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; font-style: italic; }
+        .function { color: #dcdcaa; }
+        .class { color: #4ec9b0; }
+        .variable { color: #9cdcfe; }
+        .number { color: #b5cea8; }
+        .operator { color: #d4d4d4; }
+        .decorator { color: #ffd700; }
+        .import { color: #c586c0; }
+        .self { color: #569cd6; font-style: italic; }
+        .builtin { color: #4fc1ff; }
+        .method { color: #dcdcaa; }
+        .parameter { color: #9cdcfe; }
+        .type-hint { color: #4ec9b0; }
+        .f-string { color: #ce9178; }
+        .f-string-expr { color: #9cdcfe; background: rgba(156, 220, 254, 0.1); }
+
+        /* VS Code-like Bash Syntax Highlighting */
+        .bash-command { color: #569cd6; font-weight: bold; }
+        .bash-string { color: #ce9178; }
+        .bash-flag { color: #9cdcfe; }
+        .bash-variable { color: #9cdcfe; }
+        .bash-operator { color: #d4d4d4; }
+
+        .json-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-left: 4px solid #2ecc71;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+        }
+
+        .json-block pre {
+            margin: 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        /* VS Code-like JSON Syntax Highlighting */
+        .json-key { color: #9cdcfe; }
+        .json-string { color: #ce9178; }
+        .json-number { color: #b5cea8; }
+        .json-boolean { color: #569cd6; }
+        .json-null { color: #569cd6; }
+        .json-punctuation { color: #d4d4d4; }
+
+        .success-box {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);
+        }
+
+        .error-box {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            background: #f8f9fa;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: #2c3e50;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .arn-display {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+            border-left: 4px solid #e74c3c;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 BDA Blueprint Setup & Operation Guide</h1>
+            <p class="subtitle">Complete guide to Amazon Bedrock Data Automation (BDA) Blueprint implementation</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📋</span>Overview</h2>
+            <p>This guide documents the complete setup and operation of Amazon Bedrock Data Automation (BDA) Blueprint for document processing. After extensive troubleshooting and implementation, we've successfully created a working BDA system that processes documents using real AWS AI services.</p>
+            
+            <div class="success-box">
+                <strong>✅ Achievement:</strong> Successfully implemented BDA job creation with real Amazon Bedrock Data Automation service, eliminating fallback processing and achieving true AI-powered document analysis.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🔧</span>Key Technical Breakthrough</h2>
+            
+            <h3>The Critical Discovery</h3>
+            <p>The main issue was using the wrong <span class="highlight">dataAutomationProfileArn</span> format. BDA uses Cross-Region Inference Service (CRIS) profiles with region-specific naming patterns.</p>
+
+            <div class="error-box">
+                <strong>❌ Wrong Profile ARN (what we tried):</strong>
+                <div class="arn-display">arn:aws:bedrock:us-east-1:aws:data-automation-profile/default</div>
+            </div>
+
+            <div class="success-box">
+                <strong>✅ Correct Profile ARN (what works):</strong>
+                <div class="arn-display">arn:aws:bedrock:us-east-1:624706593351:data-automation-profile/us.data-automation-v1</div>
+            </div>
+
+            <h3>Key Differences</h3>
+            <ul>
+                <li><strong>Account ID:</strong> Use your actual 12-digit account ID, not "aws"</li>
+                <li><strong>Profile Name:</strong> Use region-specific name "us.data-automation-v1" for us-east-1</li>
+                <li><strong>Service:</strong> This is a CRIS (Cross-Region Inference Service) profile</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">⚙️</span>Implementation Details</h2>
+            
+            <h3>Working BDA Job Creation Code</h3>
+            <div class="code-block" data-lang="Python">
+<pre>
+<span class="comment"># Correct BDA job creation implementation</span>
+<span class="keyword">async</span> <span class="keyword">def</span> <span class="function">_get_or_create_data_automation_profile</span>(<span class="self">self</span>, <span class="parameter">project_arn</span><span class="type-hint">: str</span>) <span class="type-hint">-> str</span>:
+    <span class="string">"""Get the correct BDA profile ARN for BDA processing"""</span>
+    <span class="comment"># Based on AWS CRIS documentation: use region-specific profile name</span>
+    <span class="comment"># For us-east-1: us.data-automation-v1</span>
+    <span class="variable">region</span> <span class="operator">=</span> <span class="string">'us-east-1'</span>
+    <span class="variable">account_id</span> <span class="operator">=</span> <span class="string">'624706593351'</span>
+    <span class="variable">profile_arn</span> <span class="operator">=</span> <span class="f-string">f"arn:aws:bedrock:<span class="f-string-expr">{region}</span>:<span class="f-string-expr">{account_id}</span>:data-automation-profile/us.data-automation-v1"</span>
+    <span class="builtin">print</span>(<span class="f-string">f"📋 Using BDA profile ARN: <span class="f-string-expr">{profile_arn}</span>"</span>)
+    <span class="keyword">return</span> <span class="variable">profile_arn</span>
+
+<span class="comment"># BDA job creation call</span>
+<span class="variable">bda_response</span> <span class="operator">=</span> <span class="self">self</span>.<span class="variable">bedrock_data_automation_runtime_client</span>.<span class="method">invoke_data_automation_async</span>(
+    <span class="parameter">inputConfiguration</span><span class="operator">=</span>{
+        <span class="string">'s3Uri'</span>: <span class="variable">permanent_s3_uri</span>
+    },
+    <span class="parameter">outputConfiguration</span><span class="operator">=</span>{
+        <span class="string">'s3Uri'</span>: <span class="f-string">f"s3://<span class="f-string-expr">{project_bucket}</span>/bda-output/"</span>
+    },
+    <span class="parameter">dataAutomationConfiguration</span><span class="operator">=</span>{
+        <span class="string">'dataAutomationProjectArn'</span>: <span class="variable">project_arn</span>
+    },
+    <span class="parameter">dataAutomationProfileArn</span><span class="operator">=</span><span class="variable">profile_arn</span>
+)
+</pre>
+            </div>
+
+            <h3>Successful Response Format</h3>
+            <div class="json-block">
+<pre>
+<span class="json-punctuation">{</span>
+  <span class="json-key">"status"</span><span class="json-punctuation">:</span> <span class="json-string">"success"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"project_name"</span><span class="json-punctuation">:</span> <span class="json-string">"test-w2-fixed-1765841521"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"filename"</span><span class="json-punctuation">:</span> <span class="json-string">"w-2.pdf"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"s3_uri"</span><span class="json-punctuation">:</span> <span class="json-string">"s3://bda-project-storage-a07a2d75b205/documents/1765904567_w-2.pdf"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"invocation_arn"</span><span class="json-punctuation">:</span> <span class="json-string">"arn:aws:bedrock:us-east-1:624706593351:data-automation-invocation/166ac275-a597-425e-b3c4-01742ec236a3"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"service"</span><span class="json-punctuation">:</span> <span class="json-string">"Amazon Bedrock Data Automation"</span><span class="json-punctuation">,</span>
+  <span class="json-key">"message"</span><span class="json-punctuation">:</span> <span class="json-string">"Document uploaded to Blueprint project 'test-w2-fixed-1765841521' in your AWS account"</span>
+<span class="json-punctuation">}</span>
+</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🚀</span>How to Run the System</h2>
+            
+            <h3>Prerequisites</h3>
+            <ol class="step-list">
+                <li><strong>AWS Account Setup:</strong> Ensure you have AWS credentials configured and BDA access enabled</li>
+                <li><strong>Python Environment:</strong> Install required dependencies from requirements.txt</li>
+                <li><strong>Project Files:</strong> Ensure all BDA project files are in place</li>
+            </ol>
+
+            <h3>Running the System</h3>
+            <ol class="step-list">
+                <li><strong>Start the API Server:</strong>
+                    <div class="code-block" data-lang="Bash">
+<pre><span class="bash-command">python</span> <span class="bash-string">Startup/startup.py</span></pre>
+                    </div>
+                </li>
+                <li><strong>Test BDA Upload:</strong>
+                    <div class="code-block" data-lang="Bash">
+<pre><span class="bash-command">python</span> <span class="bash-string">debug_bda_upload.py</span></pre>
+                    </div>
+                </li>
+                <li><strong>Check System Status:</strong>
+                    <div class="code-block" data-lang="Bash">
+<pre><span class="bash-command">python</span> <span class="bash-string">check_existing_projects.py</span></pre>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🛠️</span>Diagnostic Scripts</h2>
+            
+            <h3>Available Diagnostic Tools</h3>
+            <div class="code-block" data-lang="Bash">
+<pre>
+<span class="comment"># Core testing scripts</span>
+<span class="bash-command">python</span> <span class="bash-string">debug_bda_upload.py</span>          <span class="comment"># Test BDA upload functionality</span>
+<span class="bash-command">python</span> <span class="bash-string">check_existing_projects.py</span>   <span class="comment"># List and analyze BDA projects</span>
+<span class="bash-command">python</span> <span class="bash-string">discover_bda_methods.py</span>      <span class="comment"># Discover available BDA API methods</span>
+
+<span class="comment"># Profile ARN testing</span>
+<span class="bash-command">python</span> <span class="bash-string">final_bda_test.py</span>            <span class="comment"># Comprehensive BDA profile testing</span>
+<span class="bash-command">python</span> <span class="bash-string">test_exact_bda_call.py</span>       <span class="comment"># Test specific BDA API calls</span>
+<span class="bash-command">python</span> <span class="bash-string">get_full_bda_error.py</span>        <span class="comment"># Get detailed error messages</span>
+
+<span class="comment"># System validation</span>
+<span class="bash-command">python</span> <span class="bash-string">check_project_arn.py</span>         <span class="comment"># Validate project ARN format</span>
+<span class="bash-command">python</span> <span class="bash-string">upgrade_aws_cli.py</span>           <span class="comment"># Check and upgrade AWS CLI</span>
+<span class="bash-command">python</span> <span class="bash-string">check_aws_cli_bda_help.py</span>    <span class="comment"># Check BDA CLI availability</span>
+</pre>
+            </div>
+
+            <h3>Troubleshooting Workflow</h3>
+            <ol class="step-list">
+                <li><strong>Basic Connectivity:</strong> Run <code>python discover_bda_methods.py</code> to verify BDA API access</li>
+                <li><strong>Profile Issues:</strong> Run <code>python final_bda_test.py</code> to test profile ARN formats</li>
+                <li><strong>Project Validation:</strong> Run <code>python check_project_arn.py</code> to verify project configuration</li>
+                <li><strong>Full System Test:</strong> Run <code>python debug_bda_upload.py</code> for end-to-end testing</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">📊</span>Success Indicators</h2>
+            
+            <h3>How to Identify Successful BDA Processing</h3>
+            
+            <div class="success-box">
+                <strong>✅ Success Indicators:</strong>
+                <ul>
+                    <li><strong>Service:</strong> "Amazon Bedrock Data Automation" (not "BDA Project Storage")</li>
+                    <li><strong>Invocation ARN:</strong> Present and valid (arn:aws:bedrock:...data-automation-invocation/...)</li>
+                    <li><strong>Status:</strong> "success"</li>
+                    <li><strong>Response Code:</strong> 200</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Fallback Indicators (BDA Failed):</strong>
+                <ul>
+                    <li><strong>Service:</strong> "BDA Project Storage"</li>
+                    <li><strong>Processing Result:</strong> Contains local Textract results</li>
+                    <li><strong>No Invocation ARN:</strong> Missing or null</li>
+                </ul>
+            </div>
+
+            <div class="error-box">
+                <strong>❌ Failure Indicators:</strong>
+                <ul>
+                    <li><strong>Status Code:</strong> 500</li>
+                    <li><strong>Error Messages:</strong> "The provided ARN is invalid"</li>
+                    <li><strong>Validation Errors:</strong> Profile ARN pattern validation failures</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🔍</span>Common Issues & Solutions</h2>
+            
+            <h3>Profile ARN Issues</h3>
+            <div class="warning-box">
+                <strong>Problem:</strong> "The provided ARN is invalid"<br>
+                <strong>Solution:</strong> Use correct CRIS profile ARN format with your account ID and region-specific profile name
+            </div>
+
+            <h3>Project ARN Issues</h3>
+            <div class="warning-box">
+                <strong>Problem:</strong> Project not found or invalid<br>
+                <strong>Solution:</strong> Verify project exists and is in COMPLETED status using check_existing_projects.py
+            </div>
+
+            <h3>Missing Parameters</h3>
+            <div class="warning-box">
+                <strong>Problem:</strong> "Missing required parameter: dataAutomationProfileArn"<br>
+                <strong>Solution:</strong> Ensure profile ARN is included in all BDA API calls
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🎯</span>Next Steps</h2>
+            
+            <h3>System Integration</h3>
+            <ol class="step-list">
+                <li><strong>C# Implementation:</strong> Update C# API with the same profile ARN format</li>
+                <li><strong>Production Deployment:</strong> Deploy the working configuration to production</li>
+                <li><strong>Monitoring:</strong> Set up monitoring for BDA job success/failure rates</li>
+                <li><strong>Documentation:</strong> Update API documentation with working examples</li>
+            </ol>
+
+            <h3>Future Enhancements</h3>
+            <ul>
+                <li>Add support for other AWS regions with their respective CRIS profile names</li>
+                <li>Implement retry logic for transient BDA failures</li>
+                <li>Add comprehensive logging for BDA job tracking</li>
+                <li>Create automated tests for BDA functionality</li>
+            </ul>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="../index.html" class="btn btn-secondary">← Back to Main</a>
+            <a href="how-to-build-blueprint-w2.html" class="btn">W-2 Processing Guide →</a>
+        </div>
+    </div>
+</body>
+</html>
